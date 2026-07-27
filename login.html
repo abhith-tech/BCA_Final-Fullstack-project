@@ -1,0 +1,1513 @@
+<!-- Declares this document as HTML5 standard layout format -->
+<!DOCTYPE html>
+<!-- Sets the language setting to English -->
+<html lang="en">
+
+<!-- Head block containing metadata, styles and CDN packages -->
+
+<head>
+    <!-- Enforces standard UTF-8 text encoding format support -->
+    <meta charset="UTF-8">
+    <!-- Sets mobile viewport responsiveness dimensions limits -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title metadata reflecting on browser dashboard tabs -->
+    <title>Login — EmpowerAccess</title>
+    <!-- Preconnect tunnel for loading Google Fonts resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Cross-origin channels for speed optimization -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        /* ===== GLOBAL RESET & BASE STYLES ===== */
+        /* Clears native margin padding structures across browser templates */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            /* Controls container margins spacing dimensions */
+            margin: 0;
+            /* Controls container margins spacing dimensions */
+            padding: 0
+        }
+
+        /* ===== CSS VARIABLES (Color Palette & Spacing) ===== */
+        /* Root variables binding light theme color and transition variables */
+        :root {
+            --bg: #f0ece4;
+            --bg2: #ebe6dd;
+            --cream: #faf7f2;
+            --clay-white: #ffffff;
+            --clay-peach: #ffded0;
+            --clay-sky: #c8e6ff;
+            --clay-mint: #c6f0e2;
+            --clay-lav: #ddd0ff;
+            --clay-yellow: #fff0b3;
+            --clay-rose: #ffd6e8;
+            --clay-blue: #bbd6ff;
+            --indigo: #5b6af0;
+            --indigo2: #7c8ef5;
+            --violet: #a78bfa;
+            --coral: #ff7b5c;
+            --coral2: #ff9a80;
+            --mint: #34d399;
+            --text: #1e1b2e;
+            --text-mid: #4a4560;
+            --text-muted: #8b87a8;
+            /* Shadow definitions for clayomorphism effect */
+            --shadow-clay:
+                0 2px 0 rgba(255, 255, 255, 0.9) inset,
+                0 -1px 0 rgba(0, 0, 0, 0.06) inset,
+                8px 8px 20px rgba(130, 110, 100, 0.18),
+                -2px -2px 8px rgba(255, 255, 255, 0.85);
+            --shadow-clay-sm:
+                0 1px 0 rgba(255, 255, 255, 0.95) inset,
+                0 -1px 0 rgba(0, 0, 0, 0.05) inset,
+                4px 4px 12px rgba(130, 110, 100, 0.16),
+                -1px -1px 5px rgba(255, 255, 255, 0.9);
+            --shadow-clay-lg:
+                0 3px 0 rgba(255, 255, 255, 0.95) inset,
+                0 -2px 0 rgba(0, 0, 0, 0.07) inset,
+                12px 14px 32px rgba(130, 110, 100, 0.22),
+                -3px -3px 12px rgba(255, 255, 255, 0.9);
+            /* Border radius scale */
+            --r-sm: 16px;
+            --r-md: 24px;
+            --r-lg: 32px;
+            --r-xl: 44px;
+            --r-pill: 999px;
+            --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ===== HTML & BODY BASE STYLES ===== */
+        html {
+            scroll-behavior: smooth
+        }
+
+        /* Body layout controlling global scroll behaviors and fonts */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--bg);
+            /* Draws text color properties using variable color tokens */
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Sets element typographic readability formats */
+            font-weight: 400;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column
+        }
+
+        /* ===== BACKGROUND DECORATIVE ELEMENTS ===== */
+        /* Canvas overlay showing visual gradients for backdrop displays */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        /* Canvas overlay showing visual gradients for backdrop displays */
+        .bg-canvas::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* Applies custom visual background color patterns from design tokens */
+            background:
+                radial-gradient(ellipse 70% 55% at 15% 20%, rgba(200, 230, 255, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 88% 75%, rgba(255, 200, 180, 0.5) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 60% at 50% 95%, rgba(198, 240, 226, 0.55) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 45% at 80% 10%, rgba(221, 208, 255, 0.5) 0%, transparent 55%);
+            animation: blobDrift 22s ease-in-out infinite alternate;
+        }
+
+        @keyframes blobDrift {
+            0% {
+                transform: scale(1) translate(0, 0)
+            }
+
+            50% {
+                transform: scale(1.04) translate(-1%, 1.5%)
+            }
+
+            100% {
+                transform: scale(1.01) translate(1%, -1%)
+            }
+        }
+
+        .blob {
+            position: absolute;
+            /* Shapes container element corners using rounded values */
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: blobFloat linear infinite;
+            pointer-events: none
+        }
+
+        .blob-1 {
+            /* Determines visual layout size constraints */
+            width: 380px;
+            /* Determines visual layout size constraints */
+            height: 380px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(200, 230, 255, 0.45);
+            top: -80px;
+            left: 5%;
+            animation-duration: 28s;
+            animation-delay: -6s
+        }
+
+        .blob-2 {
+            /* Determines visual layout size constraints */
+            width: 320px;
+            /* Determines visual layout size constraints */
+            height: 320px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(255, 210, 200, 0.4);
+            top: 35%;
+            right: -60px;
+            animation-duration: 22s;
+            animation-delay: -14s
+        }
+
+        .blob-3 {
+            /* Determines visual layout size constraints */
+            width: 280px;
+            /* Determines visual layout size constraints */
+            height: 280px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(221, 208, 255, 0.45);
+            bottom: 10%;
+            left: 20%;
+            animation-duration: 26s;
+            animation-delay: -10s
+        }
+
+        .blob-4 {
+            /* Determines visual layout size constraints */
+            width: 250px;
+            /* Determines visual layout size constraints */
+            height: 250px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(198, 240, 226, 0.4);
+            top: 60%;
+            right: 25%;
+            animation-duration: 24s;
+            animation-delay: -4s
+        }
+
+        @keyframes blobFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1)
+            }
+
+            33% {
+                transform: translateY(-30px) scale(1.03)
+            }
+
+            66% {
+                transform: translateY(20px) scale(0.97)
+            }
+        }
+
+        .bg-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(91, 106, 240, 0.12) 1px, transparent 1px);
+            background-size: 32px 32px
+        }
+
+        /* ===== MAIN SITE CONTAINER ===== */
+        .site {
+            position: relative;
+            z-index: 1;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        /* Glassmorphic floating top navbar layout */
+        .navbar {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Determines visual layout size constraints */
+            width: calc(100% - 48px);
+            max-width: 1200px;
+            /* Determines visual layout size constraints */
+            height: 68px;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Controls container margins spacing dimensions */
+            padding: 0 28px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-xl);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay);
+            z-index: 500;
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.97);
+        }
+
+        /* Brand text link with special bold font layouts */
+        .brand {
+            font-family: 'Nunito', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: 22px;
+            /* Sets element typographic readability formats */
+            font-weight: 900;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text);
+            letter-spacing: -0.02em;
+            text-decoration: none
+        }
+
+        /* Brand text link with special bold font layouts */
+        .brand .acc {
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo)
+        }
+
+        /* Glassmorphic floating top navbar layout */
+        .navbar ul {
+            list-style: none;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        /* Glassmorphic floating top navbar layout */
+        .navbar ul li a {
+            text-decoration: none;
+            /* Sets element typographic readability formats */
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-mid);
+            /* Sets element typographic readability formats */
+            font-weight: 600;
+            /* Controls container margins spacing dimensions */
+            padding: 7px 14px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-pill);
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: all 0.2s
+        }
+
+        /* Glassmorphic floating top navbar layout */
+        .navbar ul li a:hover {
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(91, 106, 240, 0.08);
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo)
+        }
+
+        /* Subtle sidebar buttons styled with clay shadows */
+        .btn-nav {
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-lav) !important;
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo) !important;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-sm) !important;
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.9) !important
+        }
+
+        /* Subtle sidebar buttons styled with clay shadows */
+        .btn-nav:hover {
+            transform: translateY(-2px) !important;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay) !important
+        }
+
+        /* Subtle sidebar buttons styled with clay shadows */
+        .btn-nav-primary {
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo) !important;
+            /* Draws text color properties using variable color tokens */
+            color: white !important;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 4px 6px 16px rgba(91, 106, 240, 0.35), 0 2px 0 rgba(255, 255, 255, 0.25) inset !important
+        }
+
+        /* Subtle sidebar buttons styled with clay shadows */
+        .btn-nav-primary:hover {
+            transform: translateY(-2px) !important;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo2) !important
+        }
+
+        .menu-toggle {
+            display: none;
+            /* Applies custom visual background color patterns from design tokens */
+            background: none;
+            /* Draws boundary divider lines between components */
+            border: none;
+            /* Sets element typographic readability formats */
+            font-size: 22px;
+            cursor: pointer;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text)
+        }
+
+        /* ===== AUTH LAYOUT (Login/Register) ===== */
+        .auth-main {
+            flex: 1;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Controls container margins spacing dimensions */
+            padding: 120px 24px 48px
+        }
+
+        .auth-wrap {
+            /* Determines visual layout size constraints */
+            width: 100%;
+            max-width: 960px;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            animation: cardReveal 0.6s var(--ease) both
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-left {
+            /* Controls container margins spacing dimensions */
+            padding: 52px 44px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-xl);
+            /* Applies custom visual background color patterns from design tokens */
+            background: linear-gradient(145deg, var(--clay-sky), var(--clay-lav));
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-lg);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.97);
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            /* Controls container margins spacing dimensions */
+            padding: 6px 16px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-pill);
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-white);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-sm);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            /* Sets element typographic readability formats */
+            font-size: 10px;
+            /* Sets element typographic readability formats */
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo);
+            margin-bottom: 24px;
+            align-self: flex-start
+        }
+
+        .auth-left h1 {
+            font-family: 'Nunito', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: clamp(32px, 4vw, 44px);
+            /* Sets element typographic readability formats */
+            font-weight: 900;
+            line-height: 1.1;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em
+        }
+
+        .auth-left h1 em {
+            font-style: normal;
+            /* Applies custom visual background color patterns from design tokens */
+            background: linear-gradient(135deg, var(--indigo), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .auth-left>p {
+            /* Sets element typographic readability formats */
+            font-size: 14.5px;
+            line-height: 1.9;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-mid);
+            margin-bottom: 32px
+        }
+
+        .auth-meta {
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column;
+            gap: 14px
+        }
+
+        .meta-item {
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Sets element typographic readability formats */
+            font-size: 13.5px;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-mid);
+            /* Sets element typographic readability formats */
+            font-weight: 600
+        }
+
+        .meta-dot {
+            /* Determines visual layout size constraints */
+            width: 7px;
+            /* Determines visual layout size constraints */
+            height: 7px;
+            /* Shapes container element corners using rounded values */
+            border-radius: 50%;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo);
+            flex-shrink: 0
+        }
+
+        .auth-right {
+            /* Controls container margins spacing dimensions */
+            padding: 52px 44px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-xl);
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-white);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-lg);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.98);
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Form Fields */
+        .msg {
+            /* Controls container margins spacing dimensions */
+            padding: 14px 20px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-md);
+            /* Sets element typographic readability formats */
+            font-size: 13px;
+            /* Sets element typographic readability formats */
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-sm)
+        }
+
+        .msg-error {
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(255, 123, 92, 0.15);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 123, 92, 0.3);
+            /* Draws text color properties using variable color tokens */
+            color: #d94325
+        }
+
+        .msg-success {
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(52, 211, 153, 0.15);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(52, 211, 153, 0.3);
+            /* Draws text color properties using variable color tokens */
+            color: #1b996b
+        }
+
+        .field {
+            margin-bottom: 14px
+        }
+
+        .field-row {
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .field input {
+            /* Determines visual layout size constraints */
+            width: 100%;
+            /* Controls container margins spacing dimensions */
+            padding: 14px 20px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--bg);
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-md);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 2px 2px 6px rgba(130, 110, 100, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.8);
+            /* Draws text color properties using variable color tokens */
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: 13.5px;
+            /* Sets element typographic readability formats */
+            font-weight: 400;
+            outline: none;
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: all 0.2s;
+        }
+
+        .field input::placeholder {
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-muted)
+        }
+
+        .field input:focus {
+            border-color: rgba(91, 106, 240, 0.4);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 2px 2px 6px rgba(91, 106, 240, 0.08) inset, 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 4px rgba(91, 106, 240, 0.1);
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--cream)
+        }
+
+        .pwd-hint {
+            /* Sets element typographic readability formats */
+            font-size: 11px;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-muted);
+            margin-top: -6px;
+            margin-bottom: 14px;
+            padding-left: 4px;
+            /* Sets element typographic readability formats */
+            font-weight: 500
+        }
+
+        /* Submit action button with visual elevation effects */
+        .btn-submit {
+            /* Determines visual layout size constraints */
+            width: 100%;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            /* Controls container margins spacing dimensions */
+            padding: 16px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-pill);
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo);
+            /* Draws text color properties using variable color tokens */
+            color: white;
+            /* Draws boundary divider lines between components */
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            /* Sets element typographic readability formats */
+            font-weight: 700;
+            cursor: pointer;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 6px 8px 20px rgba(91, 106, 240, 0.4), 0 2px 0 rgba(255, 255, 255, 0.2) inset;
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: all 0.25s var(--ease);
+        }
+
+        /* Submit action button with visual elevation effects */
+        .btn-submit:hover {
+            transform: translateY(-4px) scale(1.02);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 8px 12px 28px rgba(91, 106, 240, 0.45)
+        }
+
+        /* Submit action button with visual elevation effects */
+        .btn-submit:active {
+            transform: translateY(1px)
+        }
+
+        /* Submit action button with visual elevation effects */
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .form-links {
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(91, 106, 240, 0.1)
+        }
+
+        .form-link {
+            /* Sets element typographic readability formats */
+            font-size: 12px;
+            /* Sets element typographic readability formats */
+            font-weight: 600;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-mid);
+            text-decoration: none;
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: color 0.2s
+        }
+
+        .form-link:hover {
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo)
+        }
+
+        .form-link-primary {
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo);
+            /* Sets element typographic readability formats */
+            font-weight: 700
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            /* Applies custom visual background color patterns from design tokens */
+            background: rgba(30, 27, 46, 0.6);
+            z-index: 800;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px)
+        }
+
+        .modal.open {
+            display: flex
+        }
+
+        .modal-card {
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-white);
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-xl);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-lg);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.98);
+            /* Determines visual layout size constraints */
+            width: 100%;
+            max-width: 440px;
+            /* Controls container margins spacing dimensions */
+            padding: 48px;
+            position: relative;
+            animation: cardReveal 0.3s var(--ease) both
+        }
+
+        .modal-card h2 {
+            font-family: 'Nunito', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: 28px;
+            /* Sets element typographic readability formats */
+            font-weight: 800;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text);
+            margin-bottom: 12px
+        }
+
+        .modal-card p {
+            /* Sets element typographic readability formats */
+            font-size: 14px;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-mid);
+            margin-bottom: 24px;
+            line-height: 1.7
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            /* Determines visual layout size constraints */
+            width: 32px;
+            /* Determines visual layout size constraints */
+            height: 32px;
+            /* Shapes container element corners using rounded values */
+            border-radius: 50%;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-lav);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo);
+            /* Sets element typographic readability formats */
+            font-size: 18px;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: all 0.2s
+        }
+
+        .close-btn:hover {
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo);
+            /* Draws text color properties using variable color tokens */
+            color: white
+        }
+
+        .otp-section {
+            display: none
+        }
+
+        .modal-msg {
+            margin-top: 14px;
+            /* Controls container margins spacing dimensions */
+            padding: 12px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-md);
+            /* Sets element typographic readability formats */
+            font-size: 12.5px;
+            /* Sets element typographic readability formats */
+            font-weight: 600;
+            text-align: center;
+            display: none
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            /* Controls container margins spacing dimensions */
+            margin: 32px 5%;
+            /* Controls container margins spacing dimensions */
+            padding: 20px;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Sets element typographic readability formats */
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text-muted);
+            opacity: 0.5;
+            /* Sets element typographic readability formats */
+            font-weight: 500;
+            margin-top: auto
+        }
+
+        .footer-brand {
+            font-family: 'Nunito', sans-serif;
+            /* Sets element typographic readability formats */
+            font-size: 20px;
+            /* Sets element typographic readability formats */
+            font-weight: 900;
+            /* Draws text color properties using variable color tokens */
+            color: var(--text)
+        }
+
+        .footer-brand span {
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo)
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media(max-width:768px) {
+
+            /* Glassmorphic floating top navbar layout */
+            .navbar {
+                top: 10px;
+                /* Determines visual layout size constraints */
+                width: calc(100% - 24px);
+                /* Controls container margins spacing dimensions */
+                padding: 0 18px
+            }
+
+            /* Glassmorphic floating top navbar layout */
+            .navbar ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                /* Applies custom visual background color patterns from design tokens */
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(20px);
+                /* Shapes container element corners using rounded values */
+                border-radius: var(--r-xl);
+                /* Controls container margins spacing dimensions */
+                padding: 20px;
+                gap: 8px;
+                /* Applies drop shadow depth styles to container wrappers */
+                box-shadow: var(--shadow-clay-lg);
+                /* Draws boundary divider lines between components */
+                border: 1.5px solid rgba(255, 255, 255, 0.97);
+                /* Controls container margins spacing dimensions */
+                margin: 0 12px;
+                /* Determines visual layout size constraints */
+                width: auto
+            }
+
+            /* Glassmorphic floating top navbar layout */
+            .navbar ul.show {
+                display: flex
+            }
+
+            .menu-toggle {
+                display: block
+            }
+
+            .auth-main {
+                /* Controls container margins spacing dimensions */
+                padding: 100px 20px 40px
+            }
+
+            .auth-wrap {
+                grid-template-columns: 1fr
+            }
+
+            .auth-left {
+                /* Controls container margins spacing dimensions */
+                padding: 40px 32px
+            }
+
+            .auth-right {
+                /* Controls container margins spacing dimensions */
+                padding: 40px 32px
+            }
+
+            .field-row {
+                grid-template-columns: 1fr
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+                /* Controls container margins spacing dimensions */
+                margin: 0 20px 32px;
+                /* Controls container margins spacing dimensions */
+                padding: 20px
+            }
+
+            .modal-card {
+                /* Controls container margins spacing dimensions */
+                margin: 20px;
+                /* Controls container margins spacing dimensions */
+                padding: 36px 28px
+            }
+        }
+
+        /* ===== CAPTCHA STYLES ===== */
+        .captcha-wrap {
+            margin-bottom: 14px;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .captcha-box {
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--bg);
+            /* Controls container margins spacing dimensions */
+            padding: 8px 12px;
+            /* Shapes container element corners using rounded values */
+            border-radius: var(--r-md);
+            /* Draws boundary divider lines between components */
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: 2px 2px 6px rgba(130, 110, 100, 0.05) inset;
+        }
+
+        #captchaCanvas {
+            /* Shapes container element corners using rounded values */
+            border-radius: 12px;
+            /* Applies custom visual background color patterns from design tokens */
+            background: white;
+            cursor: pointer;
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-sm);
+        }
+
+        .btn-refresh-captcha {
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--clay-lav);
+            /* Draws boundary divider lines between components */
+            border: none;
+            /* Determines visual layout size constraints */
+            width: 36px;
+            /* Determines visual layout size constraints */
+            height: 36px;
+            /* Shapes container element corners using rounded values */
+            border-radius: 50%;
+            /* Applies responsive flex and grid layouts to align children elements */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Draws text color properties using variable color tokens */
+            color: var(--indigo);
+            /* Sets element typographic readability formats */
+            font-size: 18px;
+            /* Enables smooth micro-interaction highlights transitions on hovering */
+            transition: all 0.2s var(--ease);
+            /* Applies drop shadow depth styles to container wrappers */
+            box-shadow: var(--shadow-clay-sm);
+        }
+
+        .btn-refresh-captcha:hover {
+            transform: rotate(180deg);
+            /* Applies custom visual background color patterns from design tokens */
+            background: var(--indigo);
+            /* Draws text color properties using variable color tokens */
+            color: white;
+        }
+
+        .captcha-input-wrap {
+            position: relative;
+        }
+
+        /* ===== PASSWORD FIELD STYLES ===== */
+        .field-password {
+            position: relative;
+        }
+
+        .field-password input {
+            padding-right: 50px !important;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.2s, transform 0.15s var(--ease);
+            z-index: 10;
+        }
+
+        .password-toggle:hover {
+            color: var(--indigo);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .password-toggle:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .password-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Background Decorative Elements ===== -->
+    <div class="bg-canvas" aria-hidden="true">
+        <div class="bg-dots"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- ===== Main Site Container ===== -->
+    <div class="site">
+
+        <!-- ===== Navigation Bar ===== -->
+        <!-- Main Navigation Header wrapping brand logo and navigation list anchors -->
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <a href="index.html" class="brand">E<span class="acc">A</span></a>
+            <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+            <ul>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#faqs">FAQ</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="login.html" class="btn-nav">Login</a></li>
+                <li><a href="register.html" class="btn-nav btn-nav-primary">Register</a></li>
+            </ul>
+        </nav>
+
+        <!-- ===== LOGIN MAIN ===== -->
+        <!-- Main content encloser hosting interactive dashboard sections -->
+        <main class="auth-main">
+            <div class="auth-wrap">
+                <!-- LEFT: Branding panel -->
+                <div class="auth-left">
+                    <div class="section-label">Welcome back</div>
+                    <h1>Sign in to<br><em>EmpowerAccess</em></h1>
+                    <p>Your AI-powered accessibility platform. Voice interaction, real-time updates, and intelligent
+                        assistance — all in one place.</p>
+                    <div class="auth-meta">
+                        <div class="meta-item"><span class="meta-dot"></span>Voice-first AI assistant</div>
+                        <div class="meta-item"><span class="meta-dot"></span>Real-time weather, news & stocks</div>
+                        <div class="meta-item"><span class="meta-dot"></span>Emergency SOS & task scheduling</div>
+                        <div class="meta-item"><span class="meta-dot"></span>Free to use</div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Form panel -->
+                <div class="auth-right">
+                    <h2
+                        style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:800;color:var(--text);margin-bottom:26px;letter-spacing:-0.01em;align-self: center;">
+                        LOGIN</h2>
+                    <div class="msg msg-error" id="error-msg"></div>
+                    <div class="msg msg-success" id="success-msg"></div>
+
+                    <!-- Data collection wrapper executing async validations -->
+                    <form id="login-form">
+                        <div class="field">
+                            <input type="email" id="email" placeholder="Email address" required>
+                        </div>
+                        <div class="field field-password">
+                            <input type="password" id="password" placeholder="Password" required>
+                            <button type="button" class="password-toggle" aria-label="Show password">
+                                <svg class="eye-show" viewBox="0 0 24 24">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-hide" viewBox="0 0 24 24" style="display: none;">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- CAPTCHA Section -->
+                        <div class="captcha-wrap">
+                            <div class="captcha-box">
+                                <canvas id="captchaCanvas" width="140" height="45"></canvas>
+                                <button type="button" class="btn-refresh-captcha" id="refresh-captcha"
+                                    title="Refresh Captcha">
+                                    ↻
+                                </button>
+                            </div>
+                            <div class="field captcha-input-wrap">
+                                <input type="text" id="captcha-input" placeholder="Enter the code above" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="login-btn">Login →</button>
+                    </form>
+
+                    <div class="form-links">
+                        <a href="#" id="forgot-pwd-btn" class="form-link">Forgot password?</a>
+                        <a href="register.html" class="form-link form-link-primary">Create account →</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="footer-brand">Empower<span>Access</span></div>
+            <span>© 2026 Project-EmpowerAccess · Developed by ATH</span>
+        </footer>
+
+    </div>
+
+    <!-- ─── FORGOT PASSWORD MODAL ─── -->
+    <div id="forgot-pwd-modal" class="modal" role="dialog" aria-modal="true" aria-label="Reset Password">
+        <div class="modal-card">
+            <button class="close-btn" aria-label="Close">&times;</button>
+
+            <!-- Step 1 -->
+            <div id="step-email">
+                <div class="section-label">Recovery</div>
+                <h2>Reset password</h2>
+                <p>Enter your registered email address and we'll send you a one-time password.</p>
+                <div class="field">
+                    <input type="email" id="reset-email" placeholder="Your email address" required>
+                </div>
+                <button class="btn-submit" id="send-otp-btn">Send OTP →</button>
+                <div class="modal-msg" id="email-msg"></div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="step-otp" class="otp-section">
+                <div class="section-label">Verification</div>
+                <h2>New password</h2>
+                <p>Enter the 6-digit OTP sent to your email and choose a new password.</p>
+                <div class="field">
+                    <input type="text" id="otp-input" placeholder="6-digit OTP" maxlength="6" required>
+                </div>
+                <div class="field field-password">
+                    <input type="password" id="new-password" placeholder="New password" required>
+                    <button type="button" class="password-toggle" aria-label="Show password">
+                        <svg class="eye-show" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg class="eye-hide" viewBox="0 0 24 24" style="display: none;">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="field field-password">
+                    <input type="password" id="confirm-new-password" placeholder="Confirm new password" required>
+                    <button type="button" class="password-toggle" aria-label="Show password">
+                        <svg class="eye-show" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg class="eye-hide" viewBox="0 0 24 24" style="display: none;">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </button>
+                </div>
+                <button class="btn-submit" id="reset-pwd-btn">Reset Password →</button>
+                <div class="modal-msg" id="reset-msg"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Redirect if already logged in
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        if (token && role) {
+            if (role === 'admin') {
+                window.location.replace('admin_dashboard.html');
+            } else if (role === 'user') {
+                window.location.replace('user_dashboard.html');
+            }
+        }
+
+        // Logical server host path for backend endpoint transactions
+        const API = 'http://localhost:5000';
+
+        // ── Navbar toggle ──
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            const ul = document.querySelector('.navbar ul');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            ul.classList.toggle('show');
+        });
+
+        // ── Message helpers ──
+        function showError(msg) {
+            const el = document.getElementById('error-msg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            // Logical selector query retrieving DOM items dynamically by ID
+            document.getElementById('success-msg').style.display = 'none';
+        }
+        function showSuccess(msg) {
+            const el = document.getElementById('success-msg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            // Logical selector query retrieving DOM items dynamically by ID
+            document.getElementById('error-msg').style.display = 'none';
+        }
+
+        function showModalMsg(el, msg, type) {
+            el.textContent = msg;
+            el.style.display = 'block';
+            if (type === 'error') {
+                el.style.background = 'rgba(255,123,92,0.15)';
+                el.style.color = '#d94325';
+            } else {
+                el.style.background = 'rgba(52,211,153,0.15)';
+                el.style.color = '#1b996b';
+            }
+        }
+
+        // ── CAPTCHA LOGIC ──
+        let currentCaptchaCode = "";
+
+        // Security CAPTCHA builder drawing noise lines on background canvas
+        function generateCaptcha() {
+            const canvas = document.getElementById('captchaCanvas');
+            const ctx = canvas.getContext('2d');
+            const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+            let captcha = "";
+
+            // Background
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Random lines for noise
+            for (let i = 0; i < 6; i++) {
+                ctx.strokeStyle = `rgba(${Math.random() * 100}, ${Math.random() * 100}, ${Math.random() * 255}, 0.2)`;
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.stroke();
+            }
+
+            // Captcha Text
+            ctx.font = "bold 26px 'Nunito', sans-serif";
+            ctx.textBaseline = "middle";
+
+            for (let i = 0; i < 5; i++) {
+                const char = characters.charAt(Math.floor(Math.random() * characters.length));
+                captcha += char;
+
+                ctx.save();
+                ctx.translate(20 + i * 25, 22);
+                ctx.rotate((Math.random() - 0.5) * 0.4);
+                ctx.fillStyle = `hsl(${Math.random() * 360}, 60%, 40%)`;
+                ctx.fillText(char, 0, 0);
+                ctx.restore();
+            }
+
+            currentCaptchaCode = captcha;
+            // Returns properties and exits execution scope
+            return captcha;
+        }
+
+        // Initialize captcha on load
+        window.addEventListener('DOMContentLoaded', generateCaptcha);
+        // Logical selector query retrieving DOM items dynamically by ID
+        document.getElementById('refresh-captcha').addEventListener('click', generateCaptcha);
+
+        // ── LOGIN FORM ──
+        // Logical selector query retrieving DOM items dynamically by ID
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Validate Captcha first
+            const captchaInput = document.getElementById('captcha-input').value.trim();
+            if (captchaInput !== currentCaptchaCode) {
+                showError('Invalid CAPTCHA code. Please try again.');
+                generateCaptcha();
+                // Logical selector query retrieving DOM items dynamically by ID
+                document.getElementById('captcha-input').value = "";
+                // Returns properties and exits execution scope
+                return;
+            }
+
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.textContent = 'Logging in...';
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Wraps network actions with safety interceptors
+            try {
+                // Asynchronously runs system HTTP requests querying backend records
+                const res = await fetch(`${API}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, captcha: captchaInput })
+                });
+                // Translates response payload text into valid objects structures
+                const data = await res.json();
+
+                // Validates logical returns flags before proceeding with actions
+                if (data.success) {
+                    // State cache system handling persistent client authentication details
+                    localStorage.setItem('token', data.token);
+                    // State cache system handling persistent client authentication details
+                    localStorage.setItem('role', data.role);
+                    // State cache system handling persistent client authentication details
+                    localStorage.setItem('name', data.name);
+                    showSuccess(data.message + ' Redirecting...');
+                    setTimeout(() => { window.location.href = data.redirect; }, 1200);
+                } else {
+                    showError(data.message);
+                    btn.disabled = false;
+                    btn.textContent = 'Login →';
+                    generateCaptcha();
+                    // Logical selector query retrieving DOM items dynamically by ID
+                    document.getElementById('captcha-input').value = "";
+                }
+            } catch (err) {
+                showError('Cannot connect to server. Make sure backend is running.');
+                btn.disabled = false;
+                btn.textContent = 'Login →';
+            }
+        });
+
+        // ── FORGOT PASSWORD MODAL ──
+        const modal = document.getElementById('forgot-pwd-modal');
+        const stepEmail = document.getElementById('step-email');
+        const stepOtp = document.getElementById('step-otp');
+
+        // Logical selector query retrieving DOM items dynamically by ID
+        document.getElementById('forgot-pwd-btn').addEventListener('click', e => {
+            e.preventDefault();
+            modal.classList.add('open');
+            stepEmail.style.display = 'block';
+            stepOtp.style.display = 'none';
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => modal.classList.remove('open'));
+        window.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
+        // ── SEND OTP ──
+        // Logical selector query retrieving DOM items dynamically by ID
+        document.getElementById('send-otp-btn').addEventListener('click', async function () {
+            const email = document.getElementById('reset-email').value.trim();
+            const msgEl = document.getElementById('email-msg');
+
+            if (!email) { showModalMsg(msgEl, 'Please enter your email', 'error'); return; }
+
+            this.disabled = true;
+            this.textContent = 'Sending...';
+
+            // Wraps network actions with safety interceptors
+            try {
+                // Asynchronously runs system HTTP requests querying backend records
+                const res = await fetch(`${API}/api/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                // Translates response payload text into valid objects structures
+                const data = await res.json();
+
+                // Validates logical returns flags before proceeding with actions
+                if (data.success) {
+                    showModalMsg(msgEl, data.message, 'success');
+                    setTimeout(() => {
+                        stepEmail.style.display = 'none';
+                        stepOtp.style.display = 'block';
+                    }, 1500);
+                } else {
+                    showModalMsg(msgEl, data.message, 'error');
+                }
+            } catch (err) {
+                showModalMsg(msgEl, 'Server error. Try again.', 'error');
+            }
+
+            this.disabled = false;
+            this.textContent = 'Send OTP →';
+        });
+
+        // ── RESET PASSWORD ──
+        // Logical selector query retrieving DOM items dynamically by ID
+        document.getElementById('reset-pwd-btn').addEventListener('click', async function () {
+            const otp = document.getElementById('otp-input').value.trim();
+            const newPassword = document.getElementById('new-password').value;
+            const confirm = document.getElementById('confirm-new-password').value;
+            const email = document.getElementById('reset-email').value.trim();
+            const msgEl = document.getElementById('reset-msg');
+
+            if (!otp || !newPassword || !confirm) { showModalMsg(msgEl, 'All fields are required', 'error'); return; }
+            if (newPassword !== confirm) { showModalMsg(msgEl, 'Passwords do not match', 'error'); return; }
+            if (newPassword.length < 6) { showModalMsg(msgEl, 'Password must be at least 6 characters', 'error'); return; }
+
+            this.disabled = true;
+            this.textContent = 'Resetting...';
+
+            // Wraps network actions with safety interceptors
+            try {
+                // Asynchronously runs system HTTP requests querying backend records
+                const res = await fetch(`${API}/api/reset-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, otp, newPassword })
+                });
+                // Translates response payload text into valid objects structures
+                const data = await res.json();
+
+                // Validates logical returns flags before proceeding with actions
+                if (data.success) {
+                    showModalMsg(msgEl, data.message, 'success');
+                    setTimeout(() => {
+                        modal.classList.remove('open');
+                    }, 1500);
+                } else {
+                    showModalMsg(msgEl, data.message, 'error');
+                }
+            } catch (err) {
+                showModalMsg(msgEl, 'Server error. Try again.', 'error');
+            }
+
+            this.disabled = false;
+            this.textContent = 'Reset Password →';
+        });
+
+        // ── Password Visibility Toggle ──
+        document.querySelectorAll('.password-toggle').forEach(button => {
+            button.addEventListener('click', function () {
+                const field = this.closest('.field');
+                const input = field.querySelector('input');
+                const showSvg = this.querySelector('.eye-show');
+                const hideSvg = this.querySelector('.eye-hide');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    showSvg.style.display = 'none';
+                    hideSvg.style.display = 'block';
+                    this.setAttribute('aria-label', 'Hide password');
+                } else {
+                    input.type = 'password';
+                    showSvg.style.display = 'block';
+                    hideSvg.style.display = 'none';
+                    this.setAttribute('aria-label', 'Show password');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

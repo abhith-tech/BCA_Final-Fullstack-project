@@ -1,0 +1,2534 @@
+<!-- Declares this document as HTML5 standard layout format -->
+<!DOCTYPE html>
+<!-- Sets the language setting to English -->
+<html lang="en">
+
+<!-- Head block containing metadata, styles and CDN packages -->
+
+<head>
+  <!-- Enforces standard UTF-8 text encoding format support -->
+  <meta charset="UTF-8">
+  <!-- Sets mobile viewport responsiveness dimensions limits -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title metadata reflecting on browser dashboard tabs -->
+  <title>EmpowerAccess — AI Accessibility Assistant</title>
+  <!-- Preconnect tunnel for loading Google Fonts resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Cross-origin channels for speed optimization -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+
+  <style>
+    /* ===== GLOBAL RESET & BASE STYLES ===== */
+    /* Clears native margin padding structures across browser templates */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      /* Controls container margins spacing dimensions */
+      margin: 0;
+      /* Controls container margins spacing dimensions */
+      padding: 0
+    }
+
+    /* ===== CSS VARIABLES (Color Palette & Spacing) ===== */
+    /* Root variables binding light theme color and transition variables */
+    :root {
+      --bg: #f0ece4;
+      --bg2: #ebe6dd;
+      --cream: #faf7f2;
+      --clay-white: #ffffff;
+      --clay-peach: #ffded0;
+      --clay-sky: #c8e6ff;
+      --clay-mint: #c6f0e2;
+      --clay-lav: #ddd0ff;
+      --clay-yellow: #fff0b3;
+      --clay-rose: #ffd6e8;
+      --clay-blue: #bbd6ff;
+      --indigo: #5b6af0;
+      --indigo2: #7c8ef5;
+      --violet: #a78bfa;
+      --coral: #ff7b5c;
+      --coral2: #ff9a80;
+      --mint: #34d399;
+      --text: #1e1b2e;
+      --text-mid: #4a4560;
+      --text-muted: #8b87a8;
+      /* Shadow definitions for clayomorphism effect */
+      --shadow-clay:
+        0 2px 0 rgba(255, 255, 255, 0.9) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.06) inset,
+        8px 8px 20px rgba(130, 110, 100, 0.18),
+        -2px -2px 8px rgba(255, 255, 255, 0.85);
+      --shadow-clay-sm:
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.05) inset,
+        4px 4px 12px rgba(130, 110, 100, 0.16),
+        -1px -1px 5px rgba(255, 255, 255, 0.9);
+      --shadow-clay-lg:
+        0 3px 0 rgba(255, 255, 255, 0.95) inset,
+        0 -2px 0 rgba(0, 0, 0, 0.07) inset,
+        12px 14px 32px rgba(130, 110, 100, 0.22),
+        -3px -3px 12px rgba(255, 255, 255, 0.9);
+      --shadow-clay-pressed:
+        0 1px 0 rgba(255, 255, 255, 0.7) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.08) inset,
+        3px 3px 8px rgba(130, 110, 100, 0.15),
+        -1px -1px 4px rgba(255, 255, 255, 0.8);
+      /* Border radius scale */
+      --r-sm: 16px;
+      --r-md: 24px;
+      --r-lg: 32px;
+      --r-xl: 44px;
+      --r-pill: 999px;
+      /* Easing function */
+      --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ===== HTML & BODY BASE STYLES ===== */
+    html {
+      scroll-behavior: smooth
+    }
+
+    /* Body layout controlling global scroll behaviors and fonts */
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--bg);
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      /* Sets element typographic readability formats */
+      font-weight: 400
+    }
+
+    /* ===== BACKGROUND DECORATIVE ELEMENTS ===== */
+    /* Canvas overlay showing visual gradients for backdrop displays */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    /* Canvas overlay showing visual gradients for backdrop displays */
+    .bg-canvas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Applies custom visual background color patterns from design tokens */
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 20%, hwb(207 78% 0% / 0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 88% 75%, rgba(255, 200, 180, 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 50% 95%, rgba(198, 240, 226, 0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 45% at 80% 10%, rgba(221, 208, 255, 0.5) 0%, transparent 55%);
+      animation: blobDrift 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes blobDrift {
+      0% {
+        transform: scale(1) translate(0, 0)
+      }
+
+      50% {
+        transform: scale(1.04) translate(-1%, 1.5%)
+      }
+
+      100% {
+        transform: scale(1.01) translate(1%, -1%)
+      }
+    }
+
+    /* Animated blob elements */
+    .blob {
+      position: absolute;
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      filter: blur(60px);
+      animation: blobFloat linear infinite;
+      pointer-events: none
+    }
+
+    .blob-1 {
+      /* Determines visual layout size constraints */
+      width: 380px;
+      /* Determines visual layout size constraints */
+      height: 380px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(200, 230, 255, 0.45);
+      top: -80px;
+      left: 5%;
+      animation-duration: 28s;
+      animation-delay: -6s
+    }
+
+    .blob-2 {
+      /* Determines visual layout size constraints */
+      width: 320px;
+      /* Determines visual layout size constraints */
+      height: 320px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(255, 210, 200, 0.4);
+      top: 35%;
+      right: -60px;
+      animation-duration: 22s;
+      animation-delay: -14s
+    }
+
+    .blob-3 {
+      /* Determines visual layout size constraints */
+      width: 280px;
+      /* Determines visual layout size constraints */
+      height: 280px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(221, 208, 255, 0.45);
+      bottom: 10%;
+      left: 20%;
+      animation-duration: 26s;
+      animation-delay: -10s
+    }
+
+    .blob-4 {
+      /* Determines visual layout size constraints */
+      width: 250px;
+      /* Determines visual layout size constraints */
+      height: 250px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(198, 240, 226, 0.4);
+      top: 60%;
+      right: 25%;
+      animation-duration: 24s;
+      animation-delay: -4s
+    }
+
+    @keyframes blobFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1)
+      }
+
+      33% {
+        transform: translateY(-30px) scale(1.03)
+      }
+
+      66% {
+        transform: translateY(20px) scale(0.97)
+      }
+    }
+
+    /* ===== SUSPENDED CLAY LOGO SHAPES ===== */
+    .suspended-ball {
+      position: absolute;
+      z-index: 6;
+      pointer-events: none;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow:
+        inset 10px 10px 20px rgba(255, 255, 255, 0.4),
+        inset -10px -10px 20px rgba(0, 0, 0, 0.05),
+        var(--shadow-clay-lg);
+      animation: floatSuspended var(--duration) ease-in-out infinite alternate;
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.5s var(--ease);
+    }
+
+    @keyframes floatSuspended {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(var(--float-x), var(--float-y)) rotate(15deg);
+      }
+    }
+
+    /* Shape: File Explorer (Folder) */
+    .shape-explorer {
+      /* Shapes container element corners using rounded values */
+      border-radius: 12px;
+      /* Determines visual layout size constraints */
+      width: 110px;
+      /* Determines visual layout size constraints */
+      height: 85px;
+    }
+
+    .shape-explorer::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      /* Determines visual layout size constraints */
+      width: 35px;
+      /* Determines visual layout size constraints */
+      height: 12px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: inherit;
+      /* Shapes container element corners using rounded values */
+      border-radius: 6px 6px 0 0;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: inset 4px 4px 8px rgba(255, 255, 255, 0.4);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-bottom: none;
+    }
+
+    /* Shape: YouTube */
+    .shape-youtube {
+      /* Shapes container element corners using rounded values */
+      border-radius: 22px;
+      /* Determines visual layout size constraints */
+      width: 100px;
+      /* Determines visual layout size constraints */
+      height: 70px;
+    }
+
+    .shape-youtube::after {
+      content: '';
+      /* Determines visual layout size constraints */
+      width: 0;
+      /* Determines visual layout size constraints */
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 20px solid rgba(255, 255, 255, 0.9);
+      margin-left: 6px;
+      filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.15));
+    }
+
+    /* Shape: Excel (Improved) */
+    .shape-excel {
+      /* Shapes container element corners using rounded values */
+      border-radius: 12px;
+      /* Determines visual layout size constraints */
+      width: 90px;
+      /* Determines visual layout size constraints */
+      height: 90px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint) !important;
+      overflow: visible;
+    }
+
+    .shape-excel::before {
+      content: 'X';
+      position: absolute;
+      left: -12px;
+      top: 15%;
+      /* Determines visual layout size constraints */
+      width: 45px;
+      /* Determines visual layout size constraints */
+      height: 70%;
+      /* Applies custom visual background color patterns from design tokens */
+      background: #a3d9c5;
+      /* Shapes container element corners using rounded values */
+      border-radius: 8px;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      z-index: 2;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Draws text color properties using variable color tokens */
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      /* Sets element typographic readability formats */
+      font-size: 24px;
+    }
+
+    .shape-excel::after {
+      content: '';
+      /* Determines visual layout size constraints */
+      width: 60%;
+      /* Determines visual layout size constraints */
+      height: 60%;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(255, 255, 255, 0.1);
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 15px 15px;
+      /* Shapes container element corners using rounded values */
+      border-radius: 4px;
+    }
+
+    /* Shape: Chrome (Improved) */
+    .shape-chrome {
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      /* Determines visual layout size constraints */
+      width: 100px;
+      /* Determines visual layout size constraints */
+      height: 100px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: conic-gradient(from 0deg,
+          #ffcdd2 0deg 120deg,
+          #c8e6c9 120deg 240deg,
+          #fff9c4 240deg 360deg) !important;
+    }
+
+    .shape-chrome::after {
+      content: '';
+      /* Determines visual layout size constraints */
+      width: 45%;
+      /* Determines visual layout size constraints */
+      height: 45%;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky);
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow:
+        inset 6px 6px 12px rgba(255, 255, 255, 0.5),
+        0 0 0 3px #ffffff;
+    }
+
+    /* Shape: Decorative Circle */
+    .shape-circle {
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+
+    }
+
+    .ball-1 {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-yellow);
+      top: -24%;
+      left: -70%;
+      --duration: 18s;
+      --float-x: 25px;
+      --float-y: 35px;
+    }
+
+    .ball-2 {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-rose);
+      top: -3%;
+      right: 17%;
+      --duration: 22s;
+      --float-x: 30px;
+      --float-y: -25px;
+      animation-delay: -5s;
+    }
+
+    .ball-3 {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint);
+      bottom: -12%;
+      right: 2%;
+      --duration: 26s;
+      --float-x: 25px;
+      --float-y: 35px;
+      animation-delay: -10s;
+      z-index: 4;
+    }
+
+    .ball-4 {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky);
+      bottom: -0%;
+      left: -5%;
+      --duration: 20s;
+      --float-x: -15px;
+      --float-y: 25px;
+      animation-delay: -15s;
+
+    }
+
+    .ball-5 {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav);
+      top: 40%;
+      left: -5%;
+      --duration: 24s;
+      --float-x: 20px;
+      --float-y: 20px;
+      animation-delay: -8s;
+    }
+
+
+    /* Decorative dot pattern background */
+    .bg-dots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(91, 106, 240, 0.12) 1px, transparent 1px);
+      background-size: 32px 32px
+    }
+
+    /* ===== PAGE LOADER STYLES ===== */
+    .loader {
+      position: fixed;
+      inset: 0;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--bg);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: loaderFade 0.8s ease forwards;
+      animation-delay: 2.8s
+    }
+
+
+    .loader-logo {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 44px;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text)
+    }
+
+    .loader-logo span {
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    .loader-sub {
+      /* Sets element typographic readability formats */
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-muted);
+      /* Sets element typographic readability formats */
+      font-weight: 600
+    }
+
+    /* Animated loading dots */
+    .loader-dots {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      gap: 8px;
+      margin-top: 8px
+    }
+
+    .loader-dot {
+      /* Determines visual layout size constraints */
+      width: 10px;
+      /* Determines visual layout size constraints */
+      height: 10px;
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      opacity: 0.3;
+      animation: dotBounce 1.2s ease-in-out infinite
+    }
+
+    .loader-dot:nth-child(2) {
+      animation-delay: 0.15s;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--coral)
+    }
+
+    .loader-dot:nth-child(3) {
+      animation-delay: 0.3s;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--mint)
+    }
+
+    @keyframes dotBounce {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0.7);
+        opacity: 0.3
+      }
+
+      40% {
+        transform: scale(1.1);
+        opacity: 1
+      }
+    }
+
+    @keyframes loaderFade {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none
+      }
+    }
+
+    /* ===== MAIN SITE CONTAINER ===== */
+    .site {
+      position: relative;
+      z-index: 1
+    }
+
+    /* ===== NAVIGATION BAR ===== */
+    /* Glassmorphic floating top navbar layout */
+    .navbar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      /* Determines visual layout size constraints */
+      width: calc(100% - 48px);
+      max-width: 1200px;
+      /* Determines visual layout size constraints */
+      height: 68px;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Controls container margins spacing dimensions */
+      padding: 0 28px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay);
+      z-index: 500;
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+    }
+
+    /* Brand text link with special bold font layouts */
+    .brand {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 22px;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      letter-spacing: -0.02em
+    }
+
+    /* Brand text link with special bold font layouts */
+    .brand .acc {
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    /* Glassmorphic floating top navbar layout */
+    .navbar ul {
+      list-style: none;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    /* Glassmorphic floating top navbar layout */
+    .navbar ul li a {
+      text-decoration: none;
+      /* Sets element typographic readability formats */
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      /* Sets element typographic readability formats */
+      font-weight: 600;
+      /* Controls container margins spacing dimensions */
+      padding: 7px 14px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.2s
+    }
+
+    /* Glassmorphic floating top navbar layout */
+    .navbar ul li a:hover {
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(91, 106, 240, 0.08);
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    /* Subtle sidebar buttons styled with clay shadows */
+    .btn-nav {
+      /* Applies custom visual background color patterns from design tokens */
+      background: transparent;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid var(--indigo);
+      /* Sets element typographic readability formats */
+      font-weight: 700;
+      /* Controls container margins spacing dimensions */
+      padding: 8px 22px;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.25s ease;
+    }
+
+    /* Subtle sidebar buttons styled with clay shadows */
+    .btn-nav:hover {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      /* Draws text color properties using variable color tokens */
+      color: white;
+      transform: translateY(-2px)
+    }
+
+    /* Subtle sidebar buttons styled with clay shadows */
+    .btn-nav-primary {
+      /* Applies custom visual background color patterns from design tokens */
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      /* Draws boundary divider lines between components */
+      border: none;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      /* Controls container margins spacing dimensions */
+      padding: 9px 26px;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 0 4px 15px rgba(91, 106, 240, 0.3);
+    }
+
+    .menu-toggle {
+      display: none;
+      /* Applies custom visual background color patterns from design tokens */
+      background: none;
+      /* Draws boundary divider lines between components */
+      border: none;
+      /* Sets element typographic readability formats */
+      font-size: 22px;
+      cursor: pointer;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text)
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      align-items: center;
+      /* Controls container margins spacing dimensions */
+      padding: 0 5%;
+      padding-top: 100px;
+      gap: 48px
+    }
+
+    .hero-inner {
+      padding-left: 50px;
+      animation: heroReveal 0.9s var(--ease) 3.2s both;
+    }
+
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: translateY(32px) scale(0.97)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: clamp(52px, 7vw, 88px);
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 26px
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      /* Applies custom visual background color patterns from design tokens */
+      background: linear-gradient(135deg, var(--indigo) 0%, var(--coral) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero p {
+      /* Sets element typographic readability formats */
+      font-size: 15.5px;
+      line-height: 1.8;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      max-width: 460px;
+      margin-bottom: 40px;
+      /* Sets element typographic readability formats */
+      font-weight: 400
+    }
+
+    .hero-actions {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    /* Call-to-action buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      /* Controls container margins spacing dimensions */
+      padding: 18px 44px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      /* Draws text color properties using variable color tokens */
+      color: white;
+      text-decoration: none;
+      /* Sets element typographic readability formats */
+      font-size: 14.5px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 6px 10px 24px rgba(91, 106, 240, 0.4), 0 2px 0 rgba(255, 255, 255, 0.25) inset;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.25s var(--ease);
+      /* Draws boundary divider lines between components */
+      border: none
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 8px 12px 28px rgba(91, 106, 240, 0.45), 0 2px 0 rgba(255, 255, 255, 0.25) inset
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.98)
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      /* Controls container margins spacing dimensions */
+      padding: 18px 44px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      text-decoration: none;
+      /* Sets element typographic readability formats */
+      font-size: 14.5px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay);
+      /* Draws boundary divider lines between components */
+      border: 2px solid var(--indigo);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.25s var(--ease)
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-4px);
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    .btn-ghost:active {
+      transform: translateY(1px)
+    }
+
+    /* Statistics cards */
+    .hero-stats {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      gap: 20px;
+      margin-top: 52px;
+      flex-wrap: wrap
+    }
+
+    .stat-chip {
+      /* Controls container margins spacing dimensions */
+      padding: 10px 18px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-md);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97)
+    }
+
+    .stat-num {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 22px;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      line-height: 1
+    }
+
+    .stat-num span {
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    .stat-label {
+      /* Sets element typographic readability formats */
+      font-size: 8.5px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-muted);
+      margin-top: 2px;
+      /* Sets element typographic readability formats */
+      font-weight: 700
+    }
+
+    /* Hero visual container for balls alignment */
+    .hero-visual {
+      position: relative;
+      /* Determines visual layout size constraints */
+      width: 100%;
+      max-width: 1100px;
+      justify-self: end;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: heroReveal 0.9s var(--ease) 3.4s both;
+    }
+
+    .hero-graphic {
+      /* Determines visual layout size constraints */
+      width: 100%;
+      /* Determines visual layout size constraints */
+      height: auto;
+      filter: drop-shadow(12px 20px 40px rgba(91, 106, 240, 0.2)) drop-shadow(-4px -4px 20px rgba(255, 255, 255, 0.8));
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.5s var(--ease), filter 0.5s ease;
+      transform: scale(1.05);
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero-graphic:hover {
+      transform: scale(1.08) translateY(-8px);
+      filter: drop-shadow(16px 28px 50px rgba(91, 106, 240, 0.28)) drop-shadow(-4px -4px 20px rgba(255, 255, 255, 0.9))
+    }
+
+    /* ===== SECTION LAYOUT ===== */
+    section {
+      position: relative
+    }
+
+    .section-pad {
+      /* Controls container margins spacing dimensions */
+      padding: 120px 5%
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      /* Controls container margins spacing dimensions */
+      padding: 6px 16px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      /* Sets element typographic readability formats */
+      font-size: 10px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      margin-bottom: 24px
+    }
+
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: clamp(36px, 5vw, 58px);
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      line-height: 1.1;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 60px;
+      letter-spacing: -0.02em
+    }
+
+    .section-title em {
+      font-style: normal;
+      /* Applies custom visual background color patterns from design tokens */
+      background: linear-gradient(135deg, var(--indigo), var(--coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-grid {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px
+    }
+
+    .about-tile {
+      /* Controls container margins spacing dimensions */
+      padding: 52px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.98);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.35s var(--ease), box-shadow 0.35s ease;
+      position: relative;
+      overflow: hidden
+    }
+
+    .about-tile::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      /* Determines visual layout size constraints */
+      width: 180px;
+      /* Determines visual layout size constraints */
+      height: 180px;
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      opacity: 0.35
+    }
+
+    .about-tile:nth-child(1)::before {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky)
+    }
+
+    .about-tile:nth-child(2)::before {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-peach)
+    }
+
+    .about-tile:hover {
+      transform: translateY(-8px) scale(1.01);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 12px 20px 48px rgba(130, 110, 100, 0.22), -3px -3px 14px rgba(255, 255, 255, 0.9)
+    }
+
+    .about-tile h3 {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 24px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 18px
+    }
+
+    .about-tile p {
+      /* Sets element typographic readability formats */
+      font-size: 14.5px;
+      line-height: 2;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid)
+    }
+
+    /* ===== HOW IT WORKS SECTION ===== */
+    .steps-grid {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px
+    }
+
+    .step {
+      /* Controls container margins spacing dimensions */
+      padding: 40px 30px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.35s var(--ease), box-shadow 0.35s ease;
+      position: relative;
+      overflow: hidden
+    }
+
+    .step:nth-child(1) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky)
+    }
+
+    .step:nth-child(2) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint)
+    }
+
+    .step:nth-child(3) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav)
+    }
+
+    .step:nth-child(4) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-peach)
+    }
+
+    .step:hover {
+      transform: translateY(-10px) rotate(-0.5deg)
+    }
+
+    .step-num {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 64px;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 18px;
+      /* Draws text color properties using variable color tokens */
+      color: rgba(30, 27, 46, 0.12)
+    }
+
+    .step h3 {
+      /* Sets element typographic readability formats */
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 12px;
+      /* Sets element typographic readability formats */
+      font-weight: 800
+    }
+
+    .step p {
+      /* Sets element typographic readability formats */
+      font-size: 13.5px;
+      line-height: 1.85;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid)
+    }
+
+    /* ===== WHY IT'S NEEDED SECTION ===== */
+    .why-row {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start
+    }
+
+    .why-text-card {
+      /* Controls container margins spacing dimensions */
+      padding: 60px 52px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.98)
+    }
+
+    .why-text-card p {
+      /* Sets element typographic readability formats */
+      font-size: 14.5px;
+      line-height: 2;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      /* Controls container margins spacing dimensions */
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(91, 106, 240, 0.08)
+    }
+
+    .why-text-card p:last-child {
+      border-bottom: none
+    }
+
+    .why-visual-card {
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: linear-gradient(135deg, var(--clay-sky), var(--clay-lav));
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+      /* Controls container margins spacing dimensions */
+      padding: 11px;
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .why-visual-card img {
+      max-width: 100%;
+      /* Determines visual layout size constraints */
+      height: auto;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-lg);
+      display: block;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 6px 10px 24px rgba(91, 106, 240, 0.18)
+    }
+
+    .why-visual-placeholder {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-muted);
+      /* Sets element typographic readability formats */
+      font-size: 13px
+    }
+
+    /* ===== FEATURES SECTION ===== */
+    .features-grid {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px
+    }
+
+    .feature-card {
+      /* Controls container margins spacing dimensions */
+      padding: 36px 28px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.35s var(--ease), box-shadow 0.35s ease;
+      position: relative;
+      overflow: hidden
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      /* Determines visual layout size constraints */
+      width: 120px;
+      /* Determines visual layout size constraints */
+      height: 120px;
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      opacity: 0.35;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: opacity 0.3s
+    }
+
+    .feature-card:nth-child(1)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky)
+    }
+
+    .feature-card:nth-child(2)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-yellow)
+    }
+
+    .feature-card:nth-child(3)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint)
+    }
+
+    .feature-card:nth-child(4)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-rose)
+    }
+
+    .feature-card:nth-child(5)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav)
+    }
+
+    .feature-card:nth-child(6)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-peach)
+    }
+
+    .feature-card:nth-child(7)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-blue)
+    }
+
+    .feature-card:nth-child(8)::after {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-yellow)
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px) rotate(0.5deg)
+    }
+
+    .feature-card:hover::after {
+      opacity: 0.55
+    }
+
+    .feature-icon-wrap {
+      /* Determines visual layout size constraints */
+      width: 52px;
+      /* Determines visual layout size constraints */
+      height: 52px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-md);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.95)
+    }
+
+    .feature-card:nth-child(1) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky)
+    }
+
+    .feature-card:nth-child(2) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-yellow)
+    }
+
+    .feature-card:nth-child(3) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint)
+    }
+
+    .feature-card:nth-child(4) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-rose)
+    }
+
+    .feature-card:nth-child(5) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav)
+    }
+
+    .feature-card:nth-child(6) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-peach)
+    }
+
+    .feature-card:nth-child(7) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-blue)
+    }
+
+    .feature-card:nth-child(8) .feature-icon-wrap {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-yellow)
+    }
+
+    .feature-icon {
+      /* Determines visual layout size constraints */
+      width: 24px;
+      /* Determines visual layout size constraints */
+      height: 24px;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    .feature-card h3 {
+      /* Sets element typographic readability formats */
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 12px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      position: relative;
+      z-index: 1
+    }
+
+    .feature-card p {
+      /* Sets element typographic readability formats */
+      font-size: 13px;
+      line-height: 1.85;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      position: relative;
+      z-index: 1
+    }
+
+    /* ===== FAQ SECTION ===== */
+    .faq-container {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start
+    }
+
+    .faq-stack {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .faq-item {
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-lg);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+      cursor: pointer;
+      overflow: hidden;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.3s var(--ease), box-shadow 0.3s ease
+    }
+
+    .faq-item:hover {
+      transform: translateX(6px)
+    }
+
+    .faq-item.active {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 6px 8px 24px rgba(91, 106, 240, 0.2), 0 2px 0 rgba(255, 255, 255, 0.9) inset;
+      transform: translateX(6px)
+    }
+
+    .faq-question {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* Controls container margins spacing dimensions */
+      padding: 22px 28px;
+      /* Sets element typographic readability formats */
+      font-size: 14px;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      /* Sets element typographic readability formats */
+      font-weight: 600;
+      user-select: none;
+      gap: 16px
+    }
+
+    .faq-arrow {
+      /* Determines visual layout size constraints */
+      width: 28px;
+      /* Determines visual layout size constraints */
+      height: 28px;
+      /* Shapes container element corners using rounded values */
+      border-radius: 50%;
+      flex-shrink: 0;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-lav);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Sets element typographic readability formats */
+      font-size: 11px;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.3s var(--ease), background 0.3s
+    }
+
+    .faq-item.active .faq-arrow {
+      transform: rotate(180deg);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      /* Draws text color properties using variable color tokens */
+      color: white;
+      border-color: var(--indigo)
+    }
+
+    .faq-answer {
+      display: none;
+      /* Controls container margins spacing dimensions */
+      padding: 0 28px 22px;
+      /* Sets element typographic readability formats */
+      font-size: 14px;
+      line-height: 1.9;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid)
+    }
+
+    .faq-item.active .faq-answer {
+      display: block
+    }
+
+    .faq-graphic {
+      /* Determines visual layout size constraints */
+      width: 100%;
+      max-width: 800px;
+      /* Determines visual layout size constraints */
+      height: auto;
+      filter: drop-shadow(12px 20px 40px rgba(91, 106, 240, 0.18)) drop-shadow(-4px -4px 20px rgba(255, 255, 255, 0.8));
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.4s var(--ease), filter 0.4s ease
+    }
+
+    .faq-graphic:hover {
+      transform: translateY(-12px) scale(1.04);
+      filter: drop-shadow(16px 28px 50px rgba(91, 106, 240, 0.28))
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-grid {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      padding-left: 70px;
+      grid-template-columns: 1fr 1.7fr;
+      gap: 24px
+    }
+
+    .contact-info-card {
+      /* Controls container margins spacing dimensions */
+      padding: 52px 44px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: linear-gradient(145deg, var(--clay-sky), var(--clay-lav));
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.98)
+    }
+
+    .contact-info-card h3 {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 24px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 36px
+    }
+
+    .contact-detail {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px
+    }
+
+    .contact-detail-item {
+      /* Controls container margins spacing dimensions */
+      padding: 16px 20px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-md);
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(255, 255, 255, 0.65);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .detail-label {
+      /* Sets element typographic readability formats */
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      /* Sets element typographic readability formats */
+      font-weight: 800
+    }
+
+    .detail-value {
+      /* Sets element typographic readability formats */
+      font-size: 13.5px;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      /* Sets element typographic readability formats */
+      font-weight: 500
+    }
+
+    /* Social media links */
+    .social-links {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .social-link {
+      /* Sets element typographic readability formats */
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo);
+      text-decoration: none;
+      /* Controls container margins spacing dimensions */
+      padding: 8px 16px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Applies custom visual background color patterns from design tokens */
+      background: rgba(255, 255, 255, 0.7);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-sm);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      /* Sets element typographic readability formats */
+      font-weight: 700;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.25s var(--ease)
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      /* Draws text color properties using variable color tokens */
+      color: white
+    }
+
+    /* Contact form card */
+    .contact-form-card {
+      /* Controls container margins spacing dimensions */
+      padding: 52px 44px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.98);
+      max-width: 800px
+    }
+
+    .contact-form-card h3 {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 24px;
+      /* Sets element typographic readability formats */
+      font-weight: 800;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      margin-bottom: 32px
+    }
+
+    .form-row {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .form-field {
+      margin-bottom: 14px
+    }
+
+    .form-field input,
+    .form-field textarea {
+      /* Determines visual layout size constraints */
+      width: 100%;
+      /* Controls container margins spacing dimensions */
+      padding: 14px 20px;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--bg);
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-md);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 2px 2px 6px rgba(130, 110, 100, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.8);
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 13.5px;
+      /* Sets element typographic readability formats */
+      font-weight: 400;
+      outline: none;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.2s;
+      resize: vertical
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-muted)
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: rgba(91, 106, 240, 0.4);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 2px 2px 6px rgba(91, 106, 240, 0.08) inset, 0 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 4px rgba(91, 106, 240, 0.1);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--cream)
+    }
+
+    /* Submit action button with visual elevation effects */
+    .btn-submit {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      /* Controls container margins spacing dimensions */
+      padding: 14px 32px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-pill);
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--indigo);
+      /* Draws text color properties using variable color tokens */
+      color: white;
+      /* Draws boundary divider lines between components */
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      /* Sets element typographic readability formats */
+      font-weight: 700;
+      cursor: pointer;
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 6px 8px 20px rgba(91, 106, 240, 0.4), 0 2px 0 rgba(255, 255, 255, 0.2) inset;
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: all 0.25s var(--ease)
+    }
+
+    /* Submit action button with visual elevation effects */
+    .btn-submit:hover {
+      transform: translateY(-4px) scale(1.02);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: 8px 12px 28px rgba(91, 106, 240, 0.45)
+    }
+
+    /* Submit action button with visual elevation effects */
+    .btn-submit:active {
+      transform: translateY(1px)
+    }
+
+    /* ===== TESTIMONIALS SECTION ===== */
+    .testimonials-grid {
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    .testimonial-card {
+      /* Controls container margins spacing dimensions */
+      padding: 40px 34px;
+      /* Shapes container element corners using rounded values */
+      border-radius: var(--r-xl);
+      /* Applies drop shadow depth styles to container wrappers */
+      box-shadow: var(--shadow-clay-lg);
+      /* Draws boundary divider lines between components */
+      border: 1.5px solid rgba(255, 255, 255, 0.97);
+      /* Enables smooth micro-interaction highlights transitions on hovering */
+      transition: transform 0.35s var(--ease);
+      position: relative;
+      overflow: hidden
+    }
+
+    .testimonial-card:nth-child(1) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-peach)
+    }
+
+    .testimonial-card:nth-child(2) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-sky)
+    }
+
+    .testimonial-card:nth-child(3) {
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-mint)
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px) rotate(-0.5deg)
+    }
+
+    .stars {
+      /* Sets element typographic readability formats */
+      font-size: 18px;
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      /* Draws text color properties using variable color tokens */
+      color: var(--coral)
+    }
+
+    .testimonial-card p {
+      /* Sets element typographic readability formats */
+      font-size: 14.5px;
+      line-height: 1.9;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-mid);
+      font-style: italic;
+      margin-bottom: 22px
+    }
+
+    .testimonial-card p:last-child {
+      font-style: normal;
+      /* Sets element typographic readability formats */
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text);
+      /* Sets element typographic readability formats */
+      font-weight: 700;
+      margin-bottom: 0
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      /* Sets element typographic readability formats */
+      font-size: 80px;
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      /* Draws text color properties using variable color tokens */
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      /* Determines visual layout size constraints */
+      width: 100%;
+      /* Controls container margins spacing dimensions */
+      padding: 48px 5%;
+      /* Applies custom visual background color patterns from design tokens */
+      background: var(--clay-white);
+      /* Applies responsive flex and grid layouts to align children elements */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Sets element typographic readability formats */
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text-muted);
+      /* Sets element typographic readability formats */
+      font-weight: 600;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      /* Controls container margins spacing dimensions */
+      margin: 20px 0 0 0;
+    }
+
+    .footer-brand {
+      font-family: 'Nunito', sans-serif;
+      /* Sets element typographic readability formats */
+      font-size: 20px;
+      /* Sets element typographic readability formats */
+      font-weight: 900;
+      /* Draws text color properties using variable color tokens */
+      color: var(--text)
+    }
+
+    .footer-brand span {
+      /* Draws text color properties using variable color tokens */
+      color: var(--indigo)
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media(max-width:1100px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:768px) {
+
+      /* Glassmorphic floating top navbar layout */
+      .navbar {
+        top: 10px;
+        /* Determines visual layout size constraints */
+        width: calc(100% - 24px);
+        /* Controls container margins spacing dimensions */
+        padding: 0 18px
+      }
+
+      /* Glassmorphic floating top navbar layout */
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        /* Applies custom visual background color patterns from design tokens */
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(20px);
+        /* Shapes container element corners using rounded values */
+        border-radius: var(--r-xl);
+        /* Controls container margins spacing dimensions */
+        padding: 20px;
+        gap: 8px;
+        /* Applies drop shadow depth styles to container wrappers */
+        box-shadow: var(--shadow-clay-lg);
+        /* Draws boundary divider lines between components */
+        border: 1.5px solid rgba(255, 255, 255, 0.97);
+        /* Controls container margins spacing dimensions */
+        margin: 0 12px;
+        /* Determines visual layout size constraints */
+        width: auto
+      }
+
+      /* Glassmorphic floating top navbar layout */
+      .navbar ul.show {
+        display: flex
+      }
+
+      .menu-toggle {
+        display: block
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        padding-bottom: 60px
+      }
+
+      .hero-graphic {
+        justify-self: center;
+        max-width: 90%
+      }
+
+      .about-grid,
+      .why-row,
+      .contact-grid,
+      .faq-container {
+        grid-template-columns: 1fr
+      }
+
+      .features-grid,
+      .steps-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .faq-graphic {
+        display: none
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        /* Controls container margins spacing dimensions */
+        padding: 40px 5%;
+      }
+
+      .section-pad {
+        /* Controls container margins spacing dimensions */
+        padding: 80px 5%
+      }
+
+      .form-row {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:480px) {
+
+      .features-grid,
+      .steps-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero h1 {
+        /* Sets element typographic readability formats */
+        font-size: 46px
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 12px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== Background Decorative Elements ===== -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-dots"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- ===== Page Loader ===== -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader-logo">Empower<span>Access</span></div>
+    <p class="loader-sub">AI Accessibility Assistant</p>
+    <div class="loader-dots">
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+      <div class="loader-dot"></div>
+    </div>
+  </div>
+
+  <!-- ===== Main Site Container ===== -->
+  <div class="site">
+
+    <!-- ===== Navigation Bar ===== -->
+    <!-- Main Navigation Header wrapping brand logo and navigation list anchors -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="brand">E<span class="acc">A</span></div>
+      <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#faqs">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="login.html" class="btn-nav">Login</a></li>
+        <li><a href="register.html" class="btn-nav btn-nav-primary">Register</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== Hero Section ===== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <!-- Main heading -->
+        <h1>Empower<br><em>Access</em></h1>
+        <!-- Hero description -->
+        <p>Breaking down physical and digital barriers through both intelligent text and voice interaction, real-time
+          assistance, and cutting-edge
+          AI — so everyone navigates the systems independently.</p>
+        <!-- Call-to-action buttons -->
+        <div class="hero-actions">
+          <a href="register.html" class="btn-primary">Get Started →</a>
+          <a href="login.html" class="btn-ghost">Sign In</a>
+        </div>
+        <!-- Key statistics -->
+        <div class="hero-stats">
+          <div class="stat-chip">
+            <div class="stat-num">8<span>+</span></div>
+            <div class="stat-label">Core Features</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-num">2<span>×</span></div>
+            <div class="stat-label">Platforms</div>
+          </div>
+          <div class="stat-chip">
+            <div class="stat-num">24<span>/7</span></div>
+            <div class="stat-label">AI Assistance</div>
+          </div>
+        </div>
+      </div>
+      <!-- Hero visual container with clustered clay balls -->
+      <div class="hero-visual">
+        <img src="e1.png" alt="EmpowerAccess hero" class="hero-graphic" />
+        <div class="suspended-ball ball-1 shape-explorer"></div>
+        <div class="suspended-ball ball-2 shape-youtube"></div>
+        <div class="suspended-ball ball-3 shape-excel"></div>
+        <div class="suspended-ball ball-4 shape-chrome"></div>
+        <div class="suspended-ball ball-5 shape-circle"></div>
+      </div>
+    </section>
+
+    <!-- ===== About Section ===== -->
+    <section id="about" class="section-pad">
+      <div class="section-tag">About</div>
+      <div class="section-title">Why <em>EmpowerAccess</em><br>exists</div>
+      <div class="about-grid">
+        <!-- Mission card -->
+        <div class="about-tile">
+          <h3>Our Mission</h3>
+          <p>We believe that everyone deserves equal access to digital technology. EmpowerAccess is dedicated to
+            breaking down barriers through intelligent voice interaction, real-time assistance, and cutting-edge AI
+            technology. Our platform empowers individuals with disabilities to navigate the digital world independently
+            and confidently.</p>
+        </div>
+        <!-- Why choose us card -->
+        <div class="about-tile">
+          <h3>Why Choose Us?</h3>
+          <p>With years of expertise in accessibility solutions, we've developed a comprehensive platform that combines
+            voice recognition, emergency services, real-time information, and task management into one seamless
+            experience. Our commitment to innovation and user-centric design ensures that accessibility doesn't mean
+            compromise on features or performance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== How It Works Section ===== -->
+    <section class="section-pad">
+      <div class="section-tag">Process</div>
+      <div class="section-title">How it <em>works</em></div>
+      <div class="steps-grid">
+        <!-- Step 1: Sign Up -->
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Sign Up</h3>
+          <p>Create your account in seconds with our simple registration process.</p>
+        </div>
+        <!-- Step 2: Configure -->
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Configure</h3>
+          <p>Set up your preferences and integrate your external services.</p>
+        </div>
+        <!-- Step 3: Interact -->
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Interact</h3>
+          <p>Use voice commands to access all features seamlessly.</p>
+        </div>
+        <!-- Step 4: Experience -->
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Experience</h3>
+          <p>Enjoy a fully accessible digital experience powered by AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why It's Needed Section ===== -->
+    <section class="section-pad" aria-label="Why it's needed">
+      <div class="section-tag">Context</div>
+      <div class="section-title">Why it's <em>needed</em></div>
+      <div class="why-row">
+        <!-- Text content card -->
+        <div class="why-text-card">
+          <p>1. Accessibility ensures equal opportunities for people of all abilities.</p>
+          <p>2. Many digital platforms remain difficult to navigate for users with disabilities.</p>
+          <p>3. AI can bridge gaps by offering personalized support and adaptive tools.</p>
+          <p>4. Inclusive design improves usability for everyone, not just those with impairments.</p>
+          <p>5. Accessibility fosters independence and dignity for individuals with diverse needs.</p>
+          <p>6. It reduces barriers in education, employment, and everyday digital interactions.</p>
+          <p>Ultimately, accessibility is about fairness, inclusion, and empowering every user.</p>
+        </div>
+        <!-- Visual card with image -->
+        <div class="why-visual-card">
+          <img src="comic.png" alt="Comic illustrating accessibility workflow"
+            onerror="this.parentElement.innerHTML=`<div class='why-visual-placeholder'><svg width='64' height='64' fill='none' stroke='currentColor' stroke-width='1' viewBox='0 0 24 24'><rect x='3' y='3' width='18' height='18' rx='2'/><path d='M3 9h18M9 21V9'/></svg><span>comic.png</span></div>`">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Features Section ===== -->
+    <section id="features" class="section-pad">
+      <div class="section-tag">Features</div>
+      <div class="section-title">Core <em>capabilities</em></div>
+      <div class="features-grid">
+        <!-- Feature 1: Voice Assistant -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" />
+            </svg></div>
+          <h3>Voice Assistant</h3>
+          <p>Smart speech recognition and text-to-speech interaction for seamless accessibility.</p>
+        </div>
+        <!-- Feature 2: Weather Updates -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8">
+              <path
+                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+            </svg></div>
+          <h3>Weather Updates</h3>
+          <p>Real-time weather information using integrated external APIs.</p>
+        </div>
+        <!-- Feature 3: News & Stocks -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg></div>
+          <h3>News & Stocks</h3>
+          <p>Stay informed with latest news headlines and live stock market data.</p>
+        </div>
+        <!-- Feature 4: Emergency SOS -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M4.93 4.93l14.14 14.14M12 8v4l3 3" />
+            </svg></div>
+          <h3>Emergency SOS</h3>
+          <p>Instant emergency alert system designed for quick response situations.</p>
+        </div>
+        <!-- Feature 5: AI-Powered -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3>AI-Powered</h3>
+          <p>Intelligent recommendations and automated task optimization powered by machine learning.</p>
+        </div>
+        <!-- Feature 6: Task Scheduler -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01" />
+            </svg>
+          </div>
+          <h3>Task Scheduler</h3>
+          <p>Intelligent task scheduling with recurring reminders, priorities, and AI-suggested optimization.</p>
+        </div>
+        <!-- Feature 7: Admin Management -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3>Admin Management</h3>
+          <p>Comprehensive admin dashboard for user management, roles, permissions, and system configuration.</p>
+        </div>
+        <!-- Feature 8: Enterprise Scale -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="9" height="9" rx="1" />
+              <rect x="13" y="2" width="9" height="9" rx="1" />
+              <rect x="2" y="13" width="9" height="9" rx="1" />
+              <rect x="13" y="13" width="9" height="9" rx="1" />
+            </svg>
+          </div>
+          <h3>Enterprise Scale</h3>
+          <p>Cloud-ready architecture supporting unlimited users with load balancing and distributed processing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ Section ===== -->
+    <section id="faqs" class="section-pad">
+      <div class="section-tag">FAQ</div>
+      <div class="section-title">Frequently asked <em>questions</em></div>
+      <div class="faq-container">
+        <!-- FAQ accordion items -->
+        <div class="faq-stack">
+          <!-- FAQ Item 1 -->
+          <div class="faq-item active">
+            <div class="faq-question">
+              <span>What devices are supported by EmpowerAccess?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">Presently EmpowerAccess is compatible with only Windows and Mac devices. Our
+              cross-platform support ensures accessibility over your device preference.</div>
+          </div>
+          <!-- FAQ Item 2 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Is my data secure on EmpowerAccess?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">Yes, we use industry-leading encryption and comply with all major data protection
+              regulations and also "we do not collect any type of data from users system".</div>
+          </div>
+          <!-- FAQ Item 3 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do I activate Mic and commands?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">Simply press (ALT+B+SPACE) to activate and (ALT+N+SPACE) to deactivate the Mic, The
+              platform
+              will listen to your commands and respond accordingly.</div>
+          </div>
+          <!-- FAQ Item 4 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Does it have any external services?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">Absolutely! EmpowerAccess supports integration with weather APIs, news services,
+              stock market data, and many other.</div>
+          </div>
+          <!-- FAQ Item 5 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Is there a mobile app?</span>
+              <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">unfortunately, we are still working on mobile apps for both iOS and Android,
+              providing the same powerful
+              features on your smartphone or tablet.</div>
+          </div>
+        </div>
+        <!-- FAQ graphic image -->
+        <img src="e2.png" alt="EmpowerAccess coder" class="faq-graphic" />
+      </div>
+    </section>
+
+    <!-- ===== Contact Section ===== -->
+    <section id="contact" class="section-pad">
+      <div class="section-tag">Contact</div>
+      <div class="section-title">Get in <em>touch</em></div>
+      <div class="contact-grid">
+        <!-- Contact information card -->
+        <div class="contact-info-card">
+          <h3>Contact Information</h3>
+          <div class="contact-detail">
+            <div class="contact-detail-item">
+              <span class="detail-label">Phone</span>
+              <span class="detail-value">+91 7975434721</span>
+            </div>
+            <div class="contact-detail-item">
+              <span class="detail-label">Email</span>
+              <span class="detail-value">email@empoweraccess.com</span>
+            </div>
+            <div class="contact-detail-item">
+              <span class="detail-label">Office</span>
+              <span class="detail-value">Dharwad, Karnataka, India</span>
+            </div>
+            <div class="contact-detail-item">
+              <span class="detail-label">Hours</span>
+              <span class="detail-value">Monday – Friday, 9 AM – 5 PM IST</span>
+            </div>
+          </div>
+          <!-- Social media links -->
+          <div class="social-links">
+            <a href="#" class="social-link">Facebook</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">LinkedIn</a>
+            <a href="#" class="social-link">Instagram</a>
+          </div>
+        </div>
+        <!-- Contact form card -->
+        <div class="contact-form-card">
+          <h3>Send a message</h3>
+          <!-- Data collection wrapper executing async validations -->
+          <form id="contactForm">
+            <!-- Name and email fields -->
+            <div class="form-row">
+              <div class="form-field">
+                <input type="text" id="contactName" placeholder="Your name" required>
+              </div>
+              <div class="form-field">
+                <input type="email" id="contactEmail" placeholder="Your email" required>
+              </div>
+            </div>
+            <!-- Subject field -->
+            <div class="form-field">
+              <input type="text" id="contactSubject" placeholder="Subject" required>
+            </div>
+            <!-- Message textarea -->
+            <div class="form-field">
+              <textarea rows="5" id="contactMessage" placeholder="Your message" required></textarea>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" id="contactSubmit" class="btn-submit">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Reviews Section ===== -->
+    <section id="reviews" class="section-pad">
+      <div class="section-tag">Reviews</div>
+      <div class="section-title">What they <em>say</em></div>
+      <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★</div>
+          <p>"review."</p>
+          <p>— Author</p>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★★</div>
+          <p>"review."</p>
+          <p>— Author</p>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <div class="stars">★★★★★</div>
+          <p>"review."</p>
+          <p>— Author</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+      <div class="footer-brand">Empower<span>Access</span></div>
+      <span>© 2026 Project-EmpowerAccess · Developed by ATH</span>
+    </footer>
+
+  </div>
+
+  <!-- ===== JavaScript Functionality ===== -->
+
+  <script>
+    // Redirect if already logged in
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token && role) {
+      if (role === 'admin') {
+        window.location.replace('admin_dashboard.html');
+      } else if (role === 'user') {
+        window.location.replace('user_dashboard.html');
+      }
+    }
+
+    // Initialize when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Handle mobile menu toggle
+      const btn = document.querySelector('.menu-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          const ul = document.querySelector('.navbar ul');
+          const exp = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', String(!exp));
+          ul.classList.toggle('show');
+        });
+      }
+    });
+
+    // Handle FAQ accordion functionality
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', function () {
+        // Close other FAQ items
+        document.querySelectorAll('.faq-item').forEach(o => {
+          if (o !== this) o.classList.remove('active');
+        });
+        // Toggle current FAQ item
+        this.classList.toggle('active');
+      });
+    });
+
+    // Handle Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('contactSubmit');
+        const originalBtnText = submitBtn.innerText;
+
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+
+        const formData = {
+          name: document.getElementById('contactName').value,
+          email: document.getElementById('contactEmail').value,
+          subject: document.getElementById('contactSubject').value,
+          message: document.getElementById('contactMessage').value
+        };
+
+        // Wraps network actions with safety interceptors
+        try {
+          // Asynchronously runs system HTTP requests querying backend records
+          const response = await fetch('http://localhost:5000/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Triggers popup alert overlays reporting execution results
+            alert(result.message);
+            contactForm.reset();
+          } else {
+            // Triggers popup alert overlays reporting execution results
+            alert(result.message || 'Something went wrong. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // Triggers popup alert overlays reporting execution results
+          alert('Failed to connect to the server. Please make sure the backend is running.');
+        } finally {
+          // Restore button state
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalBtnText;
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

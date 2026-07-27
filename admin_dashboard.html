@@ -1,0 +1,4124 @@
+<!-- Declares this document as standard HTML5 modern markup format -->
+<!DOCTYPE html>
+<!-- Specifies English as the primary content translation language -->
+<html lang="en">
+
+<!-- Header container enclosing page metadata, styles, and import packages -->
+
+<head>
+    <!-- Specifies standard UTF-8 character encoding to handle special symbols -->
+    <meta charset="UTF-8">
+    <!-- Ensures mobile layout optimization by controlling page layout width and scale levels -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the browser title bar display text for this administrative panel -->
+    <title>EmpowerAccess — Admin</title>
+    <!-- Preconnect tunnel pointing to Google Web Font repository to speed up downloads -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Cross-origin preconnect for static assets to improve cache performance -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Binds primary brand CSS custom variables (design tokens) under global scope */
+        :root {
+            /* Premium Horizon Cockpit Theme */
+            --bg: #F4F7FE;
+            --sidebar-bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --primary: #4318FF;
+            --primary-hover: #3311DB;
+            --primary-light: #F4F7FE;
+            --secondary: #A3AED0;
+            --accent: #01B574;
+
+            --text-main: #1B254B;
+            --text-sec: #A3AED0;
+            --text-muted: #707EAE;
+
+            --border: #E2E8F0;
+            --shadow-card: 0 40px 50px -10px rgba(0, 0, 0, 0.08), 0 16px 20px -12px rgba(0, 0, 0, 0.08), 14px 17px 40px 4px rgba(112, 144, 176, 0.18);
+            --shadow-hover: 0 50px 60px -10px rgba(0, 0, 0, 0.15), 0 20px 25px -12px rgba(0, 0, 0, 0.15), 14px 17px 40px 4px rgba(112, 144, 176, 0.32);
+            --shadow-header: 0px 12px 24px rgba(0, 0, 0, 0.08);
+
+            --r-xl: 30px;
+            --r-lg: 20px;
+            --r-md: 12px;
+            --r-sm: 8px;
+
+            --teal: #01B574;
+            --red: #EE5D50;
+            --coral: #FF7B5C;
+            --blue: #39B1FF;
+            --gold: #FFB547;
+            --danger: #EE5D50;
+            --dark: #1B2559;
+
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Overrides theme design tokens to activate modern premium dark mode styles */
+        body.dark-theme {
+            --bg: #0B1437;
+            --sidebar-bg: #111C44;
+            --card-bg: #111C44;
+            --primary: #868CFF;
+            --primary-hover: #6771FF;
+            --primary-light: rgba(134, 140, 255, 0.15);
+            --secondary: #A3AED0;
+            --accent: #05CD99;
+            --text-main: #F4F7FE;
+            --text-sec: #A3AED0;
+            --text-muted: #8F9BBA;
+            --border: rgba(226, 232, 240, 0.08);
+            --shadow-card: 0 25px 50px -10px rgba(0, 0, 0, 0.8), 0 12px 18px -8px rgba(0, 0, 0, 0.8);
+            --shadow-hover: 0 40px 70px -5px rgba(0, 0, 0, 1), 0 20px 30px -10px rgba(0, 0, 0, 1);
+
+            --teal: #05CD99;
+            --red: #EE5D50;
+            --coral: #FF7B5C;
+            --blue: #6AD2FF;
+            --gold: #FFB547;
+            --danger: #EE5D50;
+            --dark: #111C44;
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .topnav {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(11, 20, 55, 0.7);
+            border-color: rgba(226, 232, 240, 0.05);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .nav-right-container,
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .btn-sidebar-toggle {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #111C44;
+            border-color: rgba(226, 232, 240, 0.05);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .ov-search-wrap {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #0B1437 !important;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(226, 232, 240, 0.05);
+        }
+
+        /* Global reset selector to clear spacing anomalies across all element templates */
+        * {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            margin: 0;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ═══ CALENDAR ═══ */
+        .cal-header {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .cal-month-wrap {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cal-month {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 20px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .cal-year {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+        }
+
+        .cal-nav {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            gap: 8px;
+        }
+
+        .cal-btn {
+            /* Enforces container dimensions across targeted element properties */
+            width: 36px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 36px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 12px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .cal-btn:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(67, 24, 255, 0.2);
+        }
+
+        .cal-grid {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .cal-day-name {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 12px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .cal-day:hover:not(.empty-day) {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+        }
+
+        .cal-day.today {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: white !important;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 8px 16px rgba(67, 24, 255, 0.25);
+        }
+
+        .cal-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            /* Enforces container dimensions across targeted element properties */
+            width: 4px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 4px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--accent);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 50%;
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .cal-btn {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #1B254B;
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .topnav {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #0b1437;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .cal-day:hover:not(.empty-day) {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(117, 81, 255, 0.2);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--bg);
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Decorative dot pattern background */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%);
+        }
+
+        /* ═══ TOP NAVBAR (Floating Clay) ═══ */
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* Enforces container dimensions across targeted element properties */
+            height: 100vh;
+            /* Enforces container dimensions across targeted element properties */
+            width: 290px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 30px 15px;
+            z-index: 1000;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.collapsed {
+            /* Enforces container dimensions across targeted element properties */
+            width: 88px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 30px 10px;
+        }
+
+        .sidebar.collapsed .sidebar-brand span,
+        .sidebar.collapsed .nav-link span,
+        .sidebar.collapsed .sidebar-footer-info,
+        .sidebar.collapsed .sidebar-time div:first-child {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-time {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 15px 0;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            justify-content: center;
+        }
+
+        .sidebar.collapsed #sidebar-live-time {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+        }
+
+        .sidebar.collapsed .sidebar-brand {
+            justify-content: center;
+            padding-left: 0;
+        }
+
+        .sidebar-brand {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 0 15px;
+            margin-bottom: 40px;
+            text-decoration: none;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .sidebar-brand img {
+            /* Enforces container dimensions across targeted element properties */
+            width: 36px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 36px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(67, 24, 255, 0.2));
+        }
+
+        .sidebar-brand span {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 19px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-links {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* Custom Scrollbar for Sidebar */
+        .sidebar-links::-webkit-scrollbar {
+            /* Enforces container dimensions across targeted element properties */
+            width: 4px;
+        }
+
+        .sidebar-links::-webkit-scrollbar-thumb {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--border);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 15px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 18px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 14px;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: none;
+            cursor: pointer;
+            /* Enforces container dimensions across targeted element properties */
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        .nav-link i {
+            /* Enforces container dimensions across targeted element properties */
+            width: 20px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 20px;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .nav-link.active {
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            /* Enforces container dimensions across targeted element properties */
+            width: 4px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 20px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 4px 0 0 4px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px;
+            border-top: 1px solid var(--border);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .sidebar-footer:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+        }
+
+        .sidebar-footer-av {
+            /* Enforces container dimensions across targeted element properties */
+            width: 40px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 40px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 12px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer-info {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sf-name {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sf-role {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 12px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+        }
+
+        /* ═══ TOP NAVBAR (Glass Cockpit) ═══ */
+        .topnav {
+            position: sticky;
+            top: 0;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            margin: -30px -30px 35px -30px;
+            /* Enforces container dimensions across targeted element properties */
+            width: calc(100% + 60px);
+            /* Enforces container dimensions across targeted element properties */
+            height: 90px;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 0 35px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: linear-gradient(90deg, var(--card-bg) 0%, rgba(67, 24, 255, 0.02) 100%);
+            backdrop-filter: blur(12px);
+            z-index: 1100;
+            border-bottom: 1px solid var(--border);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .topnav:hover {
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-left-group {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-sidebar-toggle {
+            /* Enforces container dimensions across targeted element properties */
+            width: 44px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 44px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 14px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: white;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .btn-sidebar-toggle:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .nav-left {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .breadcrumb {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+            margin-bottom: 2px;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 28px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .nav-right {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right-container {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 255, 255, 0.8);
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 8px 10px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 24px;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 20px rgba(112, 144, 176, 0.08);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-icon-btn {
+            /* Enforces container dimensions across targeted element properties */
+            width: 40px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 40px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 12px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: transparent;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-icon-btn:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--bg);
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+        }
+
+        .nav-icon-btn.has-notif::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            /* Enforces container dimensions across targeted element properties */
+            width: 8px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 8px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--accent);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 2px solid white;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 50%;
+        }
+
+        .nav-av {
+            /* Enforces container dimensions across targeted element properties */
+            width: 40px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 40px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 12px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .nav-av:hover {
+            transform: translateY(-2px);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(67, 24, 255, 0.3);
+        }
+
+        .btn-header-logout {
+            /* Enforces container dimensions across targeted element properties */
+            width: 40px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 40px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 12px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(238, 93, 80, 0.1);
+            /* Defines the text font paint color using design token themes */
+            color: #EE5D50;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .btn-header-logout:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #EE5D50;
+            /* Defines the text font paint color using design token themes */
+            color: white;
+        }
+
+        /* ═══ MAIN CONTENT ═══ */
+        .main {
+            margin-left: 290px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 30px 30px;
+            min-height: 100vh;
+            position: relative;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .main.expanded {
+            margin-left: 88px;
+        }
+
+        .section {
+            display: none;
+            animation: heroReveal 0.5s ease forwards;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══ GRID SYSTEM (Smarter Cockpit) ═══ */
+        .cockpit-grid {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: stretch;
+        }
+
+        .cockpit-grid.split-66 {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .cockpit-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .cockpit-grid>* {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            /* Enforces container dimensions across targeted element properties */
+            height: 100%;
+            min-width: 0;
+        }
+
+        .stat-grid {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-lg);
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 24px;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: var(--shadow-card);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid transparent;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            animation: cardEntrance 0.6s ease backwards;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon-box {
+            /* Enforces container dimensions across targeted element properties */
+            width: 56px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 56px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 50%;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .stat-card:hover .stat-icon-box {
+            transform: scale(1.1);
+        }
+
+        .stat-icon-box.primary {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #F4F7FE;
+            /* Defines the text font paint color using design token themes */
+            color: #4318FF;
+        }
+
+        .stat-icon-box.sky {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #E1F5FE;
+            /* Defines the text font paint color using design token themes */
+            color: #03A9F4;
+        }
+
+        .stat-icon-box.mint {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #E8F5E9;
+            /* Defines the text font paint color using design token themes */
+            color: #4CAF50;
+        }
+
+        .stat-icon-box.rose {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: #FFEBEE;
+            /* Defines the text font paint color using design token themes */
+            color: #F44336;
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .stat-icon-box.primary {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(67, 24, 255, 0.1);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .stat-icon-box.sky {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(3, 169, 244, 0.1);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .stat-icon-box.mint {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        /* Configures body layout fonts, canvas colors, scroll properties, and scale rules */
+        body.dark-theme .stat-icon-box.rose {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .stat-info {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .stat-num {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 26px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        /* ═══ CARDS ═══ */
+        .card {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 24px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 24px;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: var(--shadow-card);
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .card-head {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .card-head h1,
+        .card-head h2 {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 18px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .stat-sub {
+            display: none;
+        }
+
+        .stat-icon {
+            display: none;
+        }
+
+        /* ═══ 2-COL GRID ═══ */
+
+        .two-col {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .three-col {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .chart-wrap {
+            position: relative;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .chart-wrap:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 255, 255, 0);
+            border-color: var(--primary-light);
+        }
+
+        /* ═══ RECENT USERS (mini table in overview) ═══ */
+        .recent-user-row {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bdr);
+        }
+
+        .recent-user-row:last-child {
+            border-bottom: none;
+        }
+
+        .ru-av {
+            /* Enforces container dimensions across targeted element properties */
+            width: 40px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 40px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--bg-alt);
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 15px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+            flex-shrink: 0;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+        }
+
+        .ru-name {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+        }
+
+        .ru-email {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--muted);
+        }
+
+        .ru-status {
+            margin-left: auto;
+        }
+
+        /* ═══ CHART AREA ═══ */
+        .chart-wrap {
+            position: relative;
+            /* Enforces container dimensions across targeted element properties */
+            width: 100%;
+            /* Enforces container dimensions across targeted element properties */
+            height: 300px;
+        }
+
+        /* ═══ TABLE ═══ */
+        /* Task Scheduler */
+        .task-scheduler {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 320px;
+        }
+
+        .task-form {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 20px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--bg);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 16px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .task-form-row {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 15px;
+        }
+
+        .task-form-footer {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .task-form .inp {
+            /* Enforces container dimensions across targeted element properties */
+            width: 100%;
+        }
+
+        .task-list {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 8px;
+        }
+
+        .task-card-body {
+            flex: 1;
+            overflow-y: auto;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 2px;
+            margin-right: -10px;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-light) transparent;
+        }
+
+        .task-card-body::-webkit-scrollbar {
+            /* Enforces container dimensions across targeted element properties */
+            width: 5px;
+        }
+
+        .task-card-body::-webkit-scrollbar-track {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: transparent;
+        }
+
+        .task-card-body::-webkit-scrollbar-thumb {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+        }
+
+        .task-card-body::-webkit-scrollbar-thumb:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+        }
+
+        .task-list::-webkit-scrollbar {
+            /* Enforces container dimensions across targeted element properties */
+            width: 5px;
+        }
+
+        .task-list::-webkit-scrollbar-track {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: transparent;
+        }
+
+        .task-list::-webkit-scrollbar-thumb {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+        }
+
+        .task-list::-webkit-scrollbar-thumb:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+        }
+
+        .task-item {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto auto;
+            gap: 12px;
+            align-items: center;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+        }
+
+        .task-check {
+            /* Enforces container dimensions across targeted element properties */
+            width: 34px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 34px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+            /* Defines the text font paint color using design token themes */
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .task-check.done {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(1, 181, 116, 0.12);
+            /* Defines the text font paint color using design token themes */
+            color: var(--teal);
+            border-color: rgba(1, 181, 116, 0.28);
+        }
+
+        .task-main {
+            min-width: 0;
+        }
+
+        .task-title {
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .task-item.is-done .task-title {
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .task-meta {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+        }
+
+        .task-delete {
+            /* Enforces container dimensions across targeted element properties */
+            width: 32px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 32px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 9px;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(224, 85, 85, 0.2);
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(224, 85, 85, 0.08);
+            /* Defines the text font paint color using design token themes */
+            color: var(--red);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .task-delete:hover,
+        .task-check:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Tables */
+        .tbl-wrap {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            overflow: hidden;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        table {
+            /* Enforces container dimensions across targeted element properties */
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 4px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 10px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: transparent;
+            border-bottom: 1px solid var(--border);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        td {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+        }
+
+        tr {
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: background 0.2s;
+        }
+
+        tr:hover td {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ═══ PILLS ═══ */
+        .pl {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 3px 10px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 20px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 10px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pl-g {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(42, 176, 144, 0.1);
+            /* Defines the text font paint color using design token themes */
+            color: var(--teal);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(42, 176, 144, 0.2);
+        }
+
+        .pl-r {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(224, 85, 85, 0.1);
+            /* Defines the text font paint color using design token themes */
+            color: var(--red);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(224, 85, 85, 0.2);
+        }
+
+        .pl-y {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 123, 92, 0.1);
+            /* Defines the text font paint color using design token themes */
+            color: var(--coral);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(255, 123, 92, 0.2);
+        }
+
+        .pl-b {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(74, 127, 212, 0.1);
+            /* Defines the text font paint color using design token themes */
+            color: var(--blue);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(74, 127, 212, 0.2);
+        }
+
+        .pl-dk {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--dark);
+            /* Defines the text font paint color using design token themes */
+            color: #fff;
+        }
+
+        /* ═══ ACTION BUTTONS ═══ */
+        .ab {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 5px 12px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 7px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            cursor: pointer;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid;
+            font-family: inherit;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: 0.15s;
+        }
+
+        .ab-g {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(42, 176, 144, 0.08);
+            /* Defines the text font paint color using design token themes */
+            color: var(--teal);
+            border-color: rgba(42, 176, 144, 0.25);
+        }
+
+        .ab-r {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(224, 85, 85, 0.08);
+            /* Defines the text font paint color using design token themes */
+            color: var(--red);
+            border-color: rgba(224, 85, 85, 0.25);
+        }
+
+        .ab-y {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 123, 92, 0.08);
+            /* Defines the text font paint color using design token themes */
+            color: var(--coral);
+            border-color: rgba(255, 123, 92, 0.25);
+        }
+
+        .ab:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        /* ═══ FORM INPUTS ═══ */
+        .inp {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 16px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .inp:focus {
+            border-color: var(--primary);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .inp::placeholder {
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+        }
+
+        textarea.inp {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-grid {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .fg {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fg label {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 12px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-sec);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ═══ BUTTONS ═══ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 24px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary);
+            /* Defines the text font paint color using design token themes */
+            color: #fff;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-primary:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-gold {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 10px 22px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--gold);
+            /* Defines the text font paint color using design token themes */
+            color: #fff;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 9px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: 0.2s;
+        }
+
+        .btn-gold:hover {
+            opacity: 0.88;
+            transform: translateY(-2px);
+        }
+
+        /* ═══ SEARCH BAR ═══ */
+        .search-bar {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .search-bar .inp {
+            max-width: 320px;
+        }
+
+        /* ═══ OVERVIEW USER SEARCH ═══ */
+        .ov-search-wrap {
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 30px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 10px 24px;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: var(--shadow-card);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid var(--border);
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .ov-search-wrap:focus-within {
+            border-color: var(--primary);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .ov-search-icon {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 20px;
+            opacity: 0.45;
+            flex-shrink: 0;
+        }
+
+        .ov-search-input {
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: transparent;
+            outline: none;
+            font-family: inherit;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 16px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text);
+            /* Enforces container dimensions across targeted element properties */
+            width: 360px;
+        }
+
+        .ov-search-input::placeholder {
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+        }
+
+        .ov-clear-btn {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: none;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            cursor: pointer;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 18px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            line-height: 1;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 0;
+            display: none;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: color 0.2s;
+        }
+
+        .ov-clear-btn:hover {
+            /* Defines the text font paint color using design token themes */
+            color: var(--coral);
+        }
+
+        .ov-filter-badge {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 6px 14px 6px 14px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: linear-gradient(135deg, var(--primary) 0%, #7551FF 100%);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 20px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 12px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(91, 106, 240, 0.3);
+            animation: heroReveal 0.3s ease both;
+            cursor: default;
+        }
+
+        .ov-filter-badge-close {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 255, 255, 0.25);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: none;
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 50%;
+            /* Enforces container dimensions across targeted element properties */
+            width: 18px;
+            /* Enforces container dimensions across targeted element properties */
+            height: 18px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 11px;
+            cursor: pointer;
+            /* Establishes modern alignment rules to adjust child items responsively */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 0;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: background 0.15s;
+        }
+
+        .ov-filter-badge-close:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ═══ MBOX ═══ */
+        .mbox {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 16px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+        }
+
+        /* ═══ LOADING / EMPTY ═══ */
+        .loading {
+            text-align: center;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 48px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+        }
+
+        .empty {
+            text-align: center;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 48px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-muted);
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 14px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 500;
+        }
+
+        /* ═══ LOGOUT BTN ═══ */
+        .btn-logout {
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 8px 18px;
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: rgba(239, 68, 68, 0.08);
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            /* Defines the text font paint color using design token themes */
+            color: var(--danger);
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: var(--r-md);
+            cursor: pointer;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            font-family: inherit;
+            /* Creates fluid, high-performance visual transitions for hover animations */
+            transition: var(--transition);
+        }
+
+        .btn-logout:hover {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--danger);
+            /* Defines the text font paint color using design token themes */
+            color: white;
+            border-color: var(--danger);
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        /* ═══ TOAST ═══ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            /* Controls container element margin spacing offsets to layout cleanly */
+            padding: 12px 20px;
+            /* Shapes container element corners using precise round curvature styling values */
+            border-radius: 10px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 13px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 600;
+            z-index: 9999;
+            display: none;
+            animation: fadeUp 0.25s ease;
+            /* Applies divider/boundary lines between sections to organize them visual */
+            border: 1px solid;
+            font-family: inherit;
+            /* Applies high-depth realistic drop shadows to give a layered modern layout look */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .toast.success {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Defines the text font paint color using design token themes */
+            color: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .toast.error {
+            /* Sets the visual canvas color/gradient style layer for this CSS rule */
+            background: var(--card-bg);
+            /* Defines the text font paint color using design token themes */
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* ═══ SECTION TITLES ═══ */
+        .section-title {
+            /* Controls typographic dimension and styling scale readability factors */
+            font-size: 22px;
+            /* Controls typographic dimension and styling scale readability factors */
+            font-weight: 800;
+            margin-bottom: 20px;
+            /* Defines the text font paint color using design token themes */
+            color: var(--text-main);
+        }
+
+        .section-title span {
+            /* Defines the text font paint color using design token themes */
+            color: var(--teal);
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 1200px) {
+            .sidebar {
+                /* Enforces container dimensions across targeted element properties */
+                width: 80px;
+                /* Controls container element margin spacing offsets to layout cleanly */
+                padding: 20px 10px;
+            }
+
+            .sidebar-brand {
+                /* Controls typographic dimension and styling scale readability factors */
+                font-size: 14px;
+            }
+
+            .sidebar-brand span {
+                display: none;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+
+            .main {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main {
+                margin-left: 0;
+                /* Controls container element margin spacing offsets to layout cleanly */
+                padding: 20px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cockpit-grid,
+            .cockpit-grid.split-66,
+            .cockpit-grid.three-col,
+            .task-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-canvas"></div>
+
+    <!-- Sidebar navigational container holding panel tabs and logo branding -->
+    <!-- SIDEBAR -->
+    <!-- Sidebar navigational container holding panel tabs and logo branding -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div
+                style="background: linear-gradient(135deg, var(--primary) 0%, #7551FF 100%); color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; letter-spacing: -0.5px; box-shadow: 0 4px 10px rgba(67, 24, 255, 0.3); flex-shrink: 0;">
+                EA</div>
+            <span>EmpowerAccess</span>
+        </div>
+        <div class="sidebar-links">
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link active" onclick="showSection('overview',this)">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Overview</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('users',this)">
+                <i data-lucide="users"></i>
+                <span>Users</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('logins',this)">
+                <i data-lucide="log-in"></i>
+                <span>Logins</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('commands',this)">
+                <i data-lucide="mic"></i>
+                <span>Commands</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('sos',this)">
+                <i data-lucide="alert-circle"></i>
+                <span>SOS</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('weather',this)">
+                <i data-lucide="cloud-sun"></i>
+                <span>Weather</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('news',this)">
+                <i data-lucide="newspaper"></i>
+                <span>News</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('stocks',this)">
+                <i data-lucide="trending-up"></i>
+                <span>Stocks</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('versions',this)">
+                <i data-lucide="layers"></i>
+                <span>Versions</span>
+            </button>
+            <!-- Menu navigation item that executes the panel change routing function when clicked -->
+            <button class="nav-link" onclick="showSection('announce',this)">
+                <i data-lucide="megaphone"></i>
+                <span>Announce</span>
+            </button>
+        </div>
+        <div class="sidebar-time" style="padding: 15px 24px; margin-top: auto; border-top: 1px solid var(--border);">
+            <div
+                style="font-size: 10px; color: var(--text-sec); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+                System Time</div>
+            <div id="sidebar-live-time"
+                style="font-size: 15px; font-weight: 800; color: var(--primary); font-family: monospace;">00:00:00</div>
+        </div>
+        <div class="sidebar-footer" onclick="showSection('profile', null)">
+            <div class="sidebar-footer-av" id="sb-av">A</div>
+            <div class="sidebar-footer-info">
+                <div class="sf-name" id="sb-name">Admin User</div>
+                <div class="sf-role">System Administrator</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enclosing container hosting all the page panels and statistics graphs content -->
+    <!-- MAIN -->
+    <!-- Enclosing container hosting all the page panels and statistics graphs content -->
+    <div class="main">
+
+        <!-- Premium glassmorphism top navbar enclosing sidebar toggler, search, theme icon, and logout -->
+        <header class="topnav">
+            <div class="nav-left-group">
+                <button class="btn-sidebar-toggle" onclick="toggleSidebar()">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div class="nav-left">
+                    <div class="page-title" id="header-title">Main Dashboard</div>
+                    <div id="hero-date"
+                        style="font-size: 11px; color: var(--text-sec); font-weight: 600; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        —</div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-right-container">
+                    <!-- Hidden inputs trick browser autocomplete into targeting these instead of the search -->
+                    <div style="display:none;" aria-hidden="true">
+                        <input type="text" name="fake_user" tabindex="-1">
+                        <input type="password" name="fake_pass" tabindex="-1">
+                    </div>
+                    <div class="ov-search-wrap"
+                        style="box-shadow:none; background:var(--bg); padding:8px 15px; border-radius: 16px; position: relative;">
+                        <i data-lucide="search" style="width: 18px; height: 18px; color: var(--text-muted);"></i>
+                        <input class="ov-search-input" id="ov-user-search" placeholder="Filter by user name..."
+                            style="width:200px; font-size:14px;" autocomplete="off" name="search_filter_nofill" readonly
+                            onfocus="this.removeAttribute('readonly');" oninput="onOvSearch(this.value)"
+                            onkeydown="if(event.key==='Escape'){clearOvSearch();}">
+                        <button id="ov-clear-btn" onclick="clearOvSearch()"
+                            style="display:none; background:none; border:none; cursor:pointer; color:var(--text-muted); font-size:16px; line-height:1; padding:0 2px; position:absolute; right:12px; top:50%; transform:translateY(-50%);">✕</button>
+                    </div>
+
+                    <button class="nav-icon-btn has-notif">
+                        <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+                    </button>
+
+                    <button class="nav-icon-btn" onclick="toggleTheme()">
+                        <i data-lucide="moon" id="theme-icon" style="width: 20px; height: 20px;"></i>
+                    </button>
+
+                    <div style="width: 1px; height: 24px; background: var(--border); margin: 0 4px;"></div>
+
+
+                    <button class="btn-header-logout" onclick="logout()" title="Logout">
+                        <i data-lucide="log-out" style="width: 18px; height: 18px;"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ OVERVIEW ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section active" id="s-overview">
+
+            <div style="display:flex; justify-content:flex-end; margin-bottom: 20px;">
+                <div class="ov-filter-badge" id="ov-filter-badge">
+                    <span style="opacity:0.8; font-size:11px;">Filtered:</span>
+                    <span id="ov-badge-name"></span>
+                    <button class="ov-filter-badge-close" onclick="clearOvSearch()" title="Clear filter">✕</button>
+                </div>
+            </div>
+
+            <div class="stat-grid">
+                <!-- Information widget card mapping key operational statistics with premium shadows -->
+                <div class="stat-card">
+                    <div class="stat-icon-box primary">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-num" id="st-total">—</div>
+                    </div>
+                </div>
+                <!-- Information widget card mapping key operational statistics with premium shadows -->
+                <div class="stat-card">
+                    <div class="stat-icon-box sky">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-label">Active Users</div>
+                        <div class="stat-num" id="st-active">—</div>
+                    </div>
+                </div>
+                <!-- Information widget card mapping key operational statistics with premium shadows -->
+                <div class="stat-card">
+                    <div class="stat-icon-box mint">
+                        <i data-lucide="terminal"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-label">Today's Commands</div>
+                        <div class="stat-num" id="st-cmds">—</div>
+                    </div>
+                </div>
+                <!-- Information widget card mapping key operational statistics with premium shadows -->
+                <div class="stat-card">
+                    <div class="stat-icon-box rose">
+                        <i data-lucide="alert-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-label">SOS Alerts</div>
+                        <div class="stat-num" id="st-sos">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Cockpit -->
+
+            <div class="cockpit-grid split-66">
+                <!-- LEFT SIDE (Stacked 2/3) -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                    <div class="card">
+                        <div class="card-head">
+                            <h1>User Growth Trend</h1>
+                        </div>
+                        <div class="chart-wrap" style="height: 320px;">
+                            <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                            <canvas id="chart-users"></canvas>
+                        </div>
+                    </div>
+                    <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                    <div class="card">
+                        <div class="card-head">
+                            <h1>Command Activity</h1>
+                        </div>
+                        <div class="chart-wrap" style="height: 400px;">
+                            <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                            <canvas id="chart-activity"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE (Combined 1/3) -->
+                <div class="card" style="padding: 0; display: flex; flex-direction: column;">
+                    <!-- New Members Part -->
+                    <div style="padding: 24px;">
+                        <div class="card-head" style="margin-bottom: 20px;">
+                            <h1>New Members</h1>
+                            <button class="ab ab-g" style="padding: 6px 14px;"
+                                onclick="showSection('users',document.querySelectorAll('.nav-link')[1])">View
+                                All</button>
+                        </div>
+                        <div id="recent-users-list" style="height: 300px; overflow-y: auto; padding-right: 4px;">
+                            <div class="loading">Loading...</div>
+                        </div>
+                    </div>
+                    <!-- Pro Section Divider (Elevated) -->
+                    <div
+                        style="background:  transparent; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); border-left: 4px solid var(--primary);border-right: 4px solid var(--primary); padding: 12px 24px; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; right: -10px; top: -10px; width: 60px; height: 60px; background: var(--primary); opacity: 0.03; border-radius: 50%; filter: blur(20px);">
+                        </div>
+                        <span
+                            style="font-size: 11px; font-weight: 800; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 24px; height: 24px; background: var(--primary-light); color: var(--primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(67, 24, 255, 0.1);">
+                                <i data-lucide="calendar-days" style="width: 13px; height: 13px;"></i>
+                            </div>
+                            Calendar
+                        </span>
+
+                    </div>
+
+
+
+
+                    <!-- Calendar Part -->
+                    <div style="padding: 24px; flex-grow: 1;">
+                        <div id="calendar-container" style="display: flex; flex-direction: column; height: 100%;">
+                            <div class="cal-header" style="margin-bottom: 20px;">
+                                <div class="cal-month-wrap">
+                                    <div class="cal-month" id="cal-month-name" style="font-size: 18px;">September</div>
+                                    <div class="cal-year" id="cal-year-val" style="font-size: 12px;">2026</div>
+                                </div>
+                                <div class="cal-nav">
+                                    <button class="cal-btn" onclick="changeMonth(-1)"
+                                        style="width: 32px; height: 32px;"><i data-lucide="chevron-left"
+                                            style="width: 16px;"></i></button>
+                                    <button class="cal-btn" onclick="changeMonth(1)"
+                                        style="width: 32px; height: 32px;"><i data-lucide="chevron-right"
+                                            style="width: 16px;"></i></button>
+                                </div>
+                            </div>
+                            <div class="cal-grid" id="cal-grid" style="flex: 1; display: grid; align-content: start;">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cockpit-grid split-66">
+                <div class="card"
+                    style="height: 480px; display: flex; flex-direction: column; background: linear-gradient(135deg, var(--card-bg) 0%, rgba(134, 140, 255, 0.04) 100%);">
+                    <div class="card-head" style="margin-bottom: 20px; flex-shrink: 0;">
+                        <h1><i data-lucide="calendar-check"
+                                style="width:20px; height:20px; vertical-align:middle; margin-right:10px; color:var(--primary)"></i>Task
+                            Scheduler</h1>
+                        <div class="ch-right">
+                            <button class="btn-primary" style="padding: 8px 16px; font-size: 12px; border-radius: 12px;"
+                                onclick="const f=document.getElementById('task-form'); f.style.display=f.style.display==='flex'?'none':'flex'">+
+                                Add Task</button>
+                        </div>
+                    </div>
+
+                    <div class="task-card-body">
+                        <!-- Task Add Form (Inline) -->
+                        <!-- Data submittal wrapper handling events inline to prevent standard page refreshes -->
+                        <form id="task-form" class="task-form" onsubmit="addTask(event)" style="display: none;">
+                            <div class="task-form-row">
+                                <div class="fg">
+                                    <label
+                                        style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--text-sec); margin-bottom:8px; display:block; letter-spacing:0.5px;">Task
+                                        Objective</label>
+                                    <input class="inp" id="task-title" placeholder="Describe the task..."
+                                        style="width:100%; border-radius:12px;">
+                                </div>
+                                <div class="fg">
+                                    <label
+                                        style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--text-sec); margin-bottom:8px; display:block; letter-spacing:0.5px;">Target
+                                        Date</label>
+                                    <input class="inp" type="date" id="task-date"
+                                        style="width:100%; border-radius:12px;">
+                                </div>
+                            </div>
+                            <div class="task-form-footer">
+                                <div class="fg" style="flex:1">
+                                    <label
+                                        style="font-size:11px; text-transform:uppercase; font-weight:800; color:var(--text-sec); margin-bottom:8px; display:block; letter-spacing:0.5px;">Priority</label>
+                                    <select class="inp" id="task-priority" style="width: 100%; border-radius:12px;">
+                                        <option value="High">🔴 High Priority</option>
+                                        <option value="Medium" selected>🟡 Medium Priority</option>
+                                        <option value="Low">🟢 Low Priority</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; gap: 12px;">
+                                    <button type="button" class="ab ab-r"
+                                        style="height:46px; padding: 0 20px; border-radius:12px;"
+                                        onclick="document.getElementById('task-form').style.display='none'">Cancel</button>
+                                    <button type="submit" class="btn-primary"
+                                        style="height:46px; padding: 0 25px; margin:0; font-size:14px; border-radius:12px;">Confirm
+                                        Task</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="task-list" class="task-list">
+                            <div class="loading">Loading ecosystem tasks...</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1>Intents Dist.</h1>
+                    </div>
+                    <div class="chart-wrap" style="height: 380px;">
+                        <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                        <canvas id="chart-intents"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cockpit-grid three-col">
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1>Feature Engagement</h1>
+                    </div>
+                    <div class="chart-wrap" style="height: 280px;">
+                        <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                        <canvas id="chart-features"></canvas>
+                    </div>
+                </div>
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1>Peak Traffic</h1>
+                    </div>
+                    <div class="chart-wrap" style="height: 280px;">
+                        <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                        <canvas id="chart-traffic"></canvas>
+                    </div>
+                </div>
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1>Command Success Rate</h1>
+                    </div>
+                    <div class="chart-wrap" style="height: 280px;">
+                        <!-- Render viewport target bound to specific Chart.js data visualization canvas models -->
+                        <canvas id="chart-status"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ USERS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-users">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">User <span>Management</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> All Users</h2>
+                    <div class="ch-right">
+                        <input class="inp" id="u-search" placeholder="Search name or email..." oninput="filterUsers()"
+                            style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="users-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ LOGINS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-logins">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Login <span>History</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> Login Logs</h2>
+                    <div class="ch-right">
+                        <input class="inp" id="login-search" placeholder="Search name or email..."
+                            oninput="filterLogins()" style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="login-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ COMMANDS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-commands">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Voice <span>Commands</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> Command Logs</h2>
+                    <div class="ch-right">
+                        <button class="ab ab-r" id="btn-bulk-commands" style="display:none;margin-right:8px"
+                            onclick="bulkDelete('commands')">Delete Selected</button>
+                        <input class="inp" id="cmd-search" placeholder="Search user name..." oninput="filterCmds()"
+                            style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="cmd-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ SOS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-sos">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">SOS <span>Emergencies</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> SOS Alerts</h2>
+                    <div class="ch-right">
+                        <button class="ab ab-r" id="btn-bulk-sos" style="display:none;margin-right:8px"
+                            onclick="bulkDelete('sos')">Delete Selected</button>
+                        <input class="inp" id="sos-search" placeholder="Search user name..." oninput="filterSOS()"
+                            style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="sos-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ WEATHER ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-weather">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Weather <span>Logs</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> Weather Queries</h2>
+                    <div class="ch-right">
+                        <button class="ab ab-r" id="btn-bulk-weather" style="display:none;margin-right:8px"
+                            onclick="bulkDelete('weather')">Delete Selected</button>
+                        <input class="inp" id="weather-search" placeholder="Search user name..."
+                            oninput="filterWeather()" style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="weather-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ NEWS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-news">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">News <span>Logs</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> News Access Logs</h2>
+                    <div class="ch-right">
+                        <button class="ab ab-r" id="btn-bulk-news" style="display:none;margin-right:8px"
+                            onclick="bulkDelete('news')">Delete Selected</button>
+                        <input class="inp" id="news-search" placeholder="Search user name..." oninput="filterNews()"
+                            style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="news-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ STOCKS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-stocks">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Stock <span>Logs</span></div>
+            <!-- Standard card module styled with modern border-radius and scale transition curves -->
+            <div class="card">
+                <div class="card-head">
+                    <h2> Stock Queries</h2>
+                    <div class="ch-right">
+                        <button class="ab ab-r" id="btn-bulk-stocks" style="display:none;margin-right:8px"
+                            onclick="bulkDelete('stocks')">Delete Selected</button>
+                        <input class="inp" id="stock-search" placeholder="Search user name..." oninput="filterStocks()"
+                            style="width:240px">
+                    </div>
+                </div>
+                <div class="tbl-wrap" id="stock-tbl">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ VERSIONS ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-versions">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Software <span>Versions</span></div>
+            <div class="two-col">
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1> Publish New Version</h1>
+                    </div>
+                    <div class="form-grid">
+                        <div class="fg">
+                            <label>Version Number</label>
+                            <input class="inp" id="v-n" placeholder="e.g. 1.2.0">
+                        </div>
+                        <div class="fg">
+                            <label>Release Date</label>
+                            <input class="inp" type="date" id="v-d">
+                        </div>
+                    </div>
+                    <div class="fg" style="margin-bottom:20px">
+                        <label>Description & Changelog</label>
+                        <textarea class="inp" id="v-desc" placeholder="What's new in this version..."></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="addVer()"
+                        style="width: 100%; background: #059669; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);">✓
+                        Publish Release</button>
+                    <div class="mbox" id="v-msg"></div>
+                </div>
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1> Version History</h1>
+                    </div>
+                    <div class="tbl-wrap" id="vr-tbl">
+                        <div class="loading">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ ANNOUNCE ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-announce">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Send <span>Announcement</span></div>
+            <div class="two-col" style="grid-template-columns: 1.2fr 1fr;">
+                <!-- Standard card module styled with modern border-radius and scale transition curves -->
+                <div class="card">
+                    <div class="card-head">
+                        <h1> Email All Active Users</h1>
+                    </div>
+                    <div class="fg" style="margin-bottom:14px">
+                        <label>Subject Line</label>
+                        <input class="inp" id="an-s" placeholder="e.g. Important Update Regarding..."
+                            oninput="updateAnnPreview()">
+                    </div>
+                    <div class="fg" style="margin-bottom:20px">
+                        <label>Message Body</label>
+                        <textarea class="inp" id="an-m" style="min-height: 180px;"
+                            placeholder="Write your message to all users..." oninput="updateAnnPreview()"></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="sendAnn()" style="width: 100%;">✉ Broadcast
+                        Announcement</button>
+                    <div class="mbox" id="an-r"></div>
+                </div>
+
+                <div class="card" style="background: var(--bg); border: 1px dashed var(--border); box-shadow: none;">
+                    <div class="card-head">
+                        <h1 style="color: var(--text-muted);"> Live Preview</h1>
+                    </div>
+                    <div
+                        style="background: var(--card-bg); border-radius: var(--r-md); padding: 24px; box-shadow: var(--shadow-header); border: 1px solid var(--border);">
+                        <div style="border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <div
+                                style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">
+                                Subject:</div>
+                            <div id="prev-s" style="font-weight: 700; color: var(--text-main); font-size: 16px;">[No
+                                Subject]
+                            </div>
+                        </div>
+                        <div id="prev-m"
+                            style="font-size: 14px; color: var(--text-sec); line-height: 1.6; white-space: pre-wrap;">
+                            Your message will appear here...</div>
+                    </div>
+                    <div
+                        style="margin-top: 20px; font-size: 12px; color: var(--text-muted); text-align: center; font-weight: 500;">
+                        This email will be sent to <strong>all active users</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <!-- ══ ADMIN PROFILE ══ -->
+        <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+        <div class="section" id="s-profile">
+            <!-- Panel content section mapped to a specific layout state triggered via navigations -->
+            <div class="section-title">Admin <span>Profile</span></div>
+            <div class="two-col" style="grid-template-columns: 1fr 1fr;">
+                <div class="card" style="padding: 40px;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), #7551FF); color: white; font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 10px 20px rgba(67, 24, 255, 0.3); margin-bottom: 20px;"
+                            id="prof-av">A</div>
+                        <div style="font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 5px;"
+                            id="prof-name">Admin User</div>
+                        <div style="font-size: 14px; color: var(--text-sec); font-weight: 600; margin-bottom: 30px;">
+                            System Administrator</div>
+
+                        <div
+                            style="width: 100%; border-top: 1px solid var(--border); padding-top: 24px; text-align: left;">
+                            <div class="fg" style="margin-bottom: 16px;">
+                                <label>Email Address</label>
+                                <input class="inp" type="text" id="prof-email" value="Loading..." readonly
+                                    style="background: var(--bg); cursor: not-allowed; opacity: 0.8; font-weight: 600; color: var(--text-main);">
+                            </div>
+                            <div class="fg" style="margin-bottom: 16px;">
+                                <label>Full Name</label>
+                                <input class="inp" type="text" id="prof-fullname" value="Loading..." readonly
+                                    style="background: var(--bg); cursor: not-allowed; opacity: 0.8; font-weight: 600; color: var(--text-main);">
+                            </div>
+                            <div class="fg" style="margin-bottom: 30px;">
+                                <label>Security Access Level</label>
+                                <input class="inp" type="text" value="Level 1 - Master Access" readonly
+                                    style="background: var(--bg); cursor: not-allowed; opacity: 0.8; font-weight: 600; color: var(--text-main);">
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
+                                <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
+                                    Signed in on this device.
+                                </div>
+                                <button class="btn-logout" onclick="logout()"
+                                    style="display: flex; align-items: center; gap: 8px;">
+                                    <i data-lucide="log-out" style="width: 16px; height: 16px;"></i> Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="padding: 40px;">
+                    <div class="card-head" style="margin-bottom: 24px;">
+                        <h1>Change Password</h1>
+                    </div>
+                    <div class="fg" style="margin-bottom: 20px;">
+                        <label>Current Password</label>
+                        <input class="inp" type="password" id="cp-curr" placeholder="Enter current password">
+                    </div>
+                    <div class="fg" style="margin-bottom: 20px;">
+                        <label>New Password</label>
+                        <input class="inp" type="password" id="cp-new" placeholder="Enter new password (min 6 chars)">
+                    </div>
+                    <div class="fg" style="margin-bottom: 30px;">
+                        <label>Confirm New Password</label>
+                        <input class="inp" type="password" id="cp-conf" placeholder="Confirm new password">
+                    </div>
+                    <button class="btn-primary" style="width: 100%;" onclick="changeAdminPassword()">Update
+                        Password</button>
+                    <div id="cp-msg" style="margin-top: 16px; font-size: 13px; font-weight: 600; text-align: center;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+
+    <script>
+        // Binds the host URI path targeting administrative system backend endpoints
+        const API = 'http://localhost:5000';
+        // Retrieves local system credentials needed to authenticate admin privileges
+        const token = localStorage.getItem('token');
+        // Retrieves local system credentials needed to authenticate admin privileges
+        const role = localStorage.getItem('role');
+        const aname = localStorage.getItem('name') || 'Admin';
+
+        if (!token || role !== 'admin') {
+            // Reroutes unauthenticated user attempts back to credentials input panel
+            window.location.replace('login.html');
+        }
+
+        // Intercept back-button to trigger logout
+        history.pushState(null, '', window.location.href);
+        window.addEventListener('popstate', function (e) {
+            logout();
+        });
+
+        // 2. Re-validate token on every page show (handles browser back/forward cache)
+        window.addEventListener('pageshow', function (e) {
+            const t = localStorage.getItem('token');
+            const r = localStorage.getItem('role');
+            if (!t || r !== 'admin') {
+                // Reroutes unauthenticated user attempts back to credentials input panel
+                window.location.replace('login.html');
+            }
+        });
+
+        // Theme Toggle
+        // Swaps body styling variables and triggers immediate chart rendering colors rebuild
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark-theme');
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+            // Interfaces local client hardware state storage to keep dashboard settings persistent
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+            // Rebuild charts immediately to reflect new theme colors
+            if (_lastStats) buildAllCharts(_lastStats);
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            setTimeout(() => {
+                const icon = document.getElementById('theme-icon');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'sun');
+                    lucide.createIcons();
+                }
+            }, 100);
+        }
+        const H = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+
+        // Global data stores for filtering
+        let allU = [], allLogins = [], allCmds = [], allSOS = [], allWeather = [], allNews = [], allStocks = [];
+
+        // Set admin name
+        const setElText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+        setElText('nav-av', aname.charAt(0).toUpperCase());
+        setElText('sb-name', aname);
+        setElText('sb-av', aname.charAt(0).toUpperCase());
+        setElText('prof-name', aname);
+        setElText('prof-av', aname.charAt(0).toUpperCase());
+
+        // Initialize Lucide icons
+        if (window.lucide) lucide.createIcons();
+
+        // Date update
+        function setDate() {
+            const now = new Date();
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('hero-date').textContent =
+                now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }
+        setDate();
+
+        // ==========================================
+        // PROFILE AND PASSWORD CHANGE LOGIC
+        // ==========================================
+        async function loadProfile() {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/profile`, { headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                if (d.success && d.admin) {
+                    setElText('prof-name', d.admin.name);
+                    setElText('prof-av', d.admin.name.charAt(0).toUpperCase());
+                    setElText('sb-name', d.admin.name);
+                    setElText('sb-av', d.admin.name.charAt(0).toUpperCase());
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('prof-email').value = d.admin.email;
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('prof-fullname').value = d.admin.name;
+                } else {
+                    console.error('Profile load failed:', d.message);
+                }
+            } catch (e) {
+                console.error("Failed to load profile", e);
+            }
+        }
+
+        async function changeAdminPassword() {
+            const curr = document.getElementById('cp-curr').value;
+            const newPwd = document.getElementById('cp-new').value;
+            const confPwd = document.getElementById('cp-conf').value;
+            const msgEl = document.getElementById('cp-msg');
+
+            if (!curr || !newPwd || !confPwd) {
+                msgEl.textContent = "Please fill out all fields.";
+                msgEl.style.color = "var(--danger)";
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+            if (newPwd !== confPwd) {
+                msgEl.textContent = "New passwords do not match.";
+                msgEl.style.color = "var(--danger)";
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+            if (newPwd.length < 6) {
+                msgEl.textContent = "New password must be at least 6 characters.";
+                msgEl.style.color = "var(--danger)";
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+
+            msgEl.textContent = "Updating...";
+            msgEl.style.color = "var(--text-sec)";
+
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/change-password`, {
+                    method: 'POST',
+                    headers: H,
+                    body: JSON.stringify({ currentPassword: curr, newPassword: newPwd })
+                });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    msgEl.textContent = "Password updated successfully!";
+                    msgEl.style.color = "var(--teal)";
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('cp-curr').value = '';
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('cp-new').value = '';
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('cp-conf').value = '';
+                    // Displays visually crisp notification toasts detailing action execution outcomes
+                    toast('Password updated successfully', 'success');
+                } else {
+                    msgEl.textContent = d.message;
+                    msgEl.style.color = "var(--danger)";
+                }
+            } catch (e) {
+                msgEl.textContent = "Network error. Try again.";
+                msgEl.style.color = "var(--danger)";
+            }
+        }
+
+        // Navigation
+        // Navigation & Polling
+        let pollTimer = null;
+        let currentSectionId = 'overview';
+        let _filterActive = false;   // true when a user filter is applied — pauses global polling
+        let _filterName = '';        // stores the active filter name for polling refresh
+
+        // Executes SPA single-page routing toggles to hide/show specific dashboard panels
+        function showSection(id, el) {
+            currentSectionId = id;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('s-' + id).classList.add('active');
+            if (el) el.classList.add('active');
+
+            // Update Breadcrumb & Header Title
+            const titleMap = {
+                overview: 'Main Dashboard',
+                users: 'User Management',
+                logins: 'Login History',
+                commands: 'Voice Commands',
+                sos: 'SOS Emergencies',
+                weather: 'Weather Logs',
+                news: 'News Logs',
+                stocks: 'Stock Logs',
+                versions: 'Software Versions',
+                announce: 'Send Announcement',
+                profile: 'Admin Profile'
+            };
+            const headerEl = document.getElementById('header-title');
+            if (headerEl) headerEl.textContent = titleMap[id] || 'Dashboard';
+
+            // Initial load
+            const loaders = getLoaders(false);
+            if (loaders[id]) loaders[id]();
+
+            restartPolling();
+        }
+
+        function getLoaders(silent = false) {
+            // Closes active sub-routing execution contexts and returns specified properties
+            return {
+                overview: () => loadOv(silent),
+                users: () => loadUsers(silent),
+                logins: () => logLoad('/api/admin/login_logs', 'login-tbl', rLogins, 'allLogins', silent),
+                commands: () => logLoad('/api/admin/command_logs', 'cmd-tbl', rCmds, 'allCmds', silent),
+                sos: () => logLoad('/api/admin/sos_logs', 'sos-tbl', rSOS, 'allSOS', silent),
+                weather: () => logLoad('/api/admin/weather_logs', 'weather-tbl', rWeather, 'allWeather', silent),
+                news: () => logLoad('/api/admin/news_logs', 'news-tbl', rNews, 'allNews', silent),
+                stocks: () => logLoad('/api/admin/stock_logs', 'stock-tbl', rStocks, 'allStocks', silent),
+                versions: () => loadVers(silent),
+                profile: () => loadProfile()
+            };
+        }
+
+        const POLL_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
+        function restartPolling() {
+            if (pollTimer) clearInterval(pollTimer);
+            pollTimer = setInterval(() => {
+                // If a user filter is active on overview, refresh with filtered data
+                // Do NOT call loadOv() as it would wipe the current filtered view
+                if (currentSectionId === 'overview' && _filterActive) {
+                    fetchUserOv(_filterName);
+                    // Closes active sub-routing execution contexts and returns specified properties
+                    return;
+                }
+                const loaders = getLoaders(true);
+                if (loaders[currentSectionId]) loaders[currentSectionId]();
+            }, POLL_INTERVAL);
+        }
+
+        function toggleSidebar() {
+            const sb = document.querySelector('.sidebar');
+            const main = document.querySelector('.main');
+            sb.classList.toggle('collapsed');
+            main.classList.toggle('expanded');
+
+            // Force chart redraw during and after CSS transition
+            window.dispatchEvent(new Event('resize'));
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                const charts = [_chartUsers, _chartAct, _chartInt, _chartFeat, _chartTraffic, _chartStatus];
+                charts.forEach(c => { if (c) c.resize(); });
+            }, 320);
+        }
+
+        // ── LIVE TIME ──
+        function updateSidebarTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            const el = document.getElementById('sidebar-live-time');
+            if (el) el.textContent = timeStr;
+        }
+        setInterval(updateSidebarTime, 1000);
+        updateSidebarTime();
+
+        // ── OVERVIEW ──
+        let _chartUsers = null, _chartAct = null, _chartInt = null, _chartFeat = null, _chartTraffic = null;
+        let _chartStatus = null;
+        let _ovDebounce = null;
+
+        async function loadOv(silent = false) {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/stats`, { headers: H });
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    applyOvData(d);
+                } else {
+                    if (!silent) toast(d.message || 'Stats load failed', 'error');
+                }
+            } catch (e) {
+                console.error('loadOv error:', e);
+                if (!silent) toast('Network error: Could not connect to API', 'error');
+            }
+        }
+
+        // ── Overview search debounce ──
+        function onOvSearch(val) {
+            const clearBtn = document.getElementById('ov-clear-btn');
+            clearBtn.style.display = val ? 'flex' : 'none';
+            clearTimeout(_ovDebounce);
+            if (!val.trim()) {
+                _filterActive = false;
+                _filterName = '';
+                loadOv();
+                hideBadge();
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+            // Auto-navigate to overview if on another section
+            if (currentSectionId !== 'overview') {
+                showSection('overview', null);
+            }
+            _ovDebounce = setTimeout(() => fetchUserOv(val.trim()), 420);
+        }
+
+        async function fetchUserOv(name) {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/stats/user?name=${encodeURIComponent(name)}`, { headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    applyOvData(d);
+                    _filterActive = true;
+                    _filterName = name;
+                    showBadge(d.filtered_name);
+                } else {
+                    // Displays visually crisp notification toasts detailing action execution outcomes
+                    toast('No users found for "' + name + '"', 'error');
+                    _filterActive = false;
+                    _filterName = '';
+                    hideBadge();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function clearOvSearch() {
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('ov-user-search').value = '';
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('ov-user-search').setAttribute('readonly', '');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('ov-clear-btn').style.display = 'none';
+            _filterActive = false;
+            _filterName = '';
+            hideBadge();
+            loadOv();
+        }
+
+        function showBadge(name) {
+            const b = document.getElementById('ov-filter-badge');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('ov-badge-name').textContent = name;
+            b.style.display = 'flex';
+        }
+        function hideBadge() {
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('ov-filter-badge').style.display = 'none';
+        }
+
+        let _lastStats = null;
+        function applyOvData(d) {
+            if (!d || !d.success || !d.stats) {
+                console.error('Invalid stats data:', d);
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+            _lastStats = d.stats;
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                const s = d.stats;
+                const setSafeText = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val !== undefined ? val : '—';
+                };
+                setSafeText('st-total', s.total_users);
+                setSafeText('st-active', s.active_users);
+                setSafeText('st-cmds', s.commands_today);
+                setSafeText('st-sos', s.sos_total);
+                renderRecentUsers(d.recent_users || []);
+                buildAllCharts(s);
+            } catch (err) {
+                console.error('applyOvData render error:', err);
+                // Displays visually crisp notification toasts detailing action execution outcomes
+                toast('Error rendering dashboard data', 'error');
+            }
+        }
+
+        function renderRecentUsers(users) {
+            const el = document.getElementById('recent-users-list');
+            if (!users.length) { el.innerHTML = '<div class="empty">No users yet</div>'; return; }
+            el.innerHTML = users.map(u => `
+        <div class="recent-user-row">
+            <div class="ru-av">${u.name.charAt(0).toUpperCase()}</div>
+            <div style="flex:1">
+                <div class="ru-name">${u.name}</div>
+                <div class="ru-email">${u.email}</div>
+            </div>
+            <div class="ru-status">
+                <span class="pl ${u.status === 'active' ? 'pl-g' : 'pl-r'}">${u.status}</span>
+            </div>
+        </div>`).join('');
+        }
+
+        function buildAllCharts(s) {
+            if (!s) return;
+            // Ensure required arrays exist
+            const trend = s.registration_trend || [];
+            const activity = s.daily_activity || [];
+            const intents = s.intent_stats || [];
+            const devices = s.device_stats || [];
+
+            const isDark = document.body.classList.contains('dark-theme');
+
+            // Premium Color Tokens
+            const cPrimary = isDark ? '#868CFF' : '#4318FF';
+            const cPrimaryHover = isDark ? '#6771FF' : '#3311DB';
+            const cAccent = isDark ? '#05CD99' : '#01B574';
+            const cText = isDark ? '#A3AED0' : '#64748b';
+            const cGrid = isDark ? 'rgba(226, 232, 240, 0.05)' : '#f1f5f9';
+            const cBg = isDark ? '#111C44' : '#ffffff';
+            const cTooltipBg = isDark ? 'rgba(11, 20, 55, 0.9)' : 'rgba(28, 28, 28, 0.9)';
+            const cTooltipText = '#ffffff';
+            const cDoughnutCenter = isDark ? '#F4F7FE' : '#1a1a1a';
+
+            // Destroy previous instances before rebuilding
+            if (_chartUsers) { _chartUsers.destroy(); _chartUsers = null; }
+            if (_chartAct) { _chartAct.destroy(); _chartAct = null; }
+            if (_chartInt) { _chartInt.destroy(); _chartInt = null; }
+            if (_chartFeat) { _chartFeat.destroy(); _chartFeat = null; }
+            if (_chartTraffic) { _chartTraffic.destroy(); _chartTraffic = null; }
+            if (_chartStatus) { _chartStatus.destroy(); _chartStatus = null; }
+            renderTasks();
+
+            // 1. User Growth (Line with Gradient)
+            const ctxUsers = document.getElementById('chart-users').getContext('2d');
+            const gradUsers = ctxUsers.createLinearGradient(0, 0, 0, 400);
+            gradUsers.addColorStop(0, isDark ? 'rgba(5, 205, 153, 0.2)' : 'rgba(1, 181, 116, 0.15)');
+            gradUsers.addColorStop(1, 'rgba(1, 181, 116, 0)');
+
+            // ── Helper to fill missing days with 0 ──
+            const fillDays = (data, daysCount) => {
+                const result = [];
+                const now = new Date();
+                for (let i = daysCount - 1; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(now.getDate() - i);
+                    const dateStr = d.toISOString().split('T')[0];
+                    const existing = data.find(item => {
+                        const itemDay = item.day || item.month;
+                        if (!itemDay) return false;
+                        // Closes active sub-routing execution contexts and returns specified properties
+                        return new Date(itemDay).toDateString() === d.toDateString();
+                    });
+                    result.push({
+                        label: d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
+                        count: existing ? existing.count : 0
+                    });
+                }
+                // Closes active sub-routing execution contexts and returns specified properties
+                return result;
+            };
+
+            const rawTrend = fillDays(trend, 30);
+
+            // ── Calculate Cumulative Total ──
+            // Start by finding the base (total users BEFORE this 30-day window)
+            const windowTotal = rawTrend.reduce((acc, curr) => acc + curr.count, 0);
+            let runningTotal = (s.total_users || 0) - windowTotal;
+
+            const filledTrend = rawTrend.map(item => {
+                runningTotal += item.count;
+                // Closes active sub-routing execution contexts and returns specified properties
+                return {
+                    label: item.label,
+                    count: runningTotal
+                };
+            });
+
+            _chartUsers = new Chart(ctxUsers, {
+                type: 'line',
+                data: {
+                    labels: filledTrend.map(i => i.label),
+                    datasets: [{
+                        label: 'Total Users',
+                        data: filledTrend.map(i => i.count),
+                        borderColor: cAccent,
+                        borderWidth: 4,
+                        backgroundColor: gradUsers,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: cAccent,
+                        pointBorderColor: cBg,
+                        pointBorderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: cTooltipBg, titleColor: cTooltipText, bodyColor: cTooltipText }
+                    },
+                    scales: {
+                        y: { beginAtZero: false, grid: { color: cGrid, drawBorder: false }, ticks: { color: cText, font: { size: 11, weight: 500 } } },
+                        x: { grid: { display: false }, ticks: { color: cText, font: { size: 11, weight: 500 } } }
+                    }
+                }
+            });
+
+            // 2. Daily Activity (Bar with Radius)
+            const ctxAct = document.getElementById('chart-activity').getContext('2d');
+            const gradAct = ctxAct.createLinearGradient(0, 0, 0, 300);
+            gradAct.addColorStop(0, cPrimaryHover);
+            gradAct.addColorStop(1, isDark ? '#313860' : '#B0A2FF');
+
+            _chartAct = new Chart(ctxAct, {
+                type: 'bar',
+                data: {
+                    labels: activity.map(i => {
+                        const date = new Date(i.date);
+                        // Closes active sub-routing execution contexts and returns specified properties
+                        return date.toLocaleDateString('en-IN', { weekday: 'short' });
+                    }),
+                    datasets: [{
+                        label: 'Commands',
+                        data: activity.map(i => i.count),
+                        backgroundColor: gradAct,
+                        borderRadius: 20,
+                        hoverBackgroundColor: cPrimary,
+                        barPercentage: 0.5,
+                        categoryPercentage: 0.8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: cTooltipBg,
+                            titleColor: cTooltipText,
+                            bodyColor: cTooltipText,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: (c) => ` ⚡ ${c.raw} Commands`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: cGrid, drawBorder: false },
+                            ticks: { color: cText, font: { size: 12, weight: 500 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: cText, font: { size: 12, weight: 600 } }
+                        }
+                    }
+                }
+            });
+
+            // 3. Command Intents (Premium Doughnut)
+            const ctxInt = document.getElementById('chart-intents').getContext('2d');
+            const totalCmds = intents.reduce((acc, curr) => acc + curr.count, 0);
+
+            _chartInt = new Chart(ctxInt, {
+                type: 'doughnut',
+                data: {
+                    labels: intents.map(i => i.category),
+                    datasets: [{
+                        data: intents.map(i => i.count),
+                        backgroundColor: [
+                            cPrimary,
+                            '#00D1FF', // Cyan
+                            '#05CD99', // Teal
+                            '#FFB547', // Amber
+                            '#EE5D50', // Rose
+                            '#A3AED0'  // Muted Blue
+                        ],
+                        borderWidth: 2,
+                        borderColor: cBg,
+                        hoverOffset: 12,
+                        borderRadius: 5,
+                        spacing: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: cTooltipBg,
+                            titleColor: cTooltipText,
+                            bodyColor: cTooltipText,
+                            padding: 12,
+                            titleFont: { size: 13 },
+                            bodyFont: { size: 12 },
+                            callbacks: {
+                                label: (context) => {
+                                    const val = context.raw;
+                                    const perc = ((val / totalCmds) * 100).toFixed(1);
+                                    // Closes active sub-routing execution contexts and returns specified properties
+                                    return ` ${context.label}: ${val} (${perc}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                },
+                plugins: [{
+                    id: 'centerText',
+                    beforeDraw: (chart) => {
+                        const { ctx, width, height } = chart;
+                        ctx.restore();
+                        const fontSize = (height / 160).toFixed(2);
+                        ctx.font = `bold ${fontSize}em "Plus Jakarta Sans"`;
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = cDoughnutCenter;
+
+                        const text = totalCmds.toString();
+                        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                        const textY = (height / 2) - 5;
+
+                        ctx.fillText(text, textX, textY);
+
+                        ctx.font = `500 0.75em "Plus Jakarta Sans"`;
+                        ctx.fillStyle = cText;
+                        const subText = "TOTAL";
+                        const subX = Math.round((width - ctx.measureText(subText).width) / 2);
+                        const subY = (height / 2) + 15;
+                        ctx.fillText(subText, subX, subY);
+                        ctx.save();
+                    }
+                }]
+            });
+
+            // 4. Feature Engagement (Radar)
+            const ctxFeat = document.getElementById('chart-features').getContext('2d');
+            _chartFeat = new Chart(ctxFeat, {
+                type: 'radar',
+                data: {
+                    labels: ['Commands', 'SOS', 'Weather', 'News', 'Stocks', 'Announce'],
+                    datasets: [{
+                        label: 'Usage Level',
+                        data: [
+                            s.commands_today || 0,
+                            s.sos_total || 0,
+                            (intents.find(i => i.category === 'Weather') || { count: 0 }).count,
+                            (intents.find(i => i.category === 'News') || { count: 0 }).count,
+                            (intents.find(i => i.category === 'Stocks') || { count: 0 }).count,
+                            10 // Placeholder for announcements
+                        ],
+                        backgroundColor: isDark ? 'rgba(134, 140, 255, 0.15)' : 'rgba(67, 24, 255, 0.2)',
+                        borderColor: cPrimary,
+                        pointBackgroundColor: cPrimary,
+                        pointBorderColor: cBg,
+                        pointHoverBackgroundColor: cBg,
+                        pointHoverBorderColor: cPrimary
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: cGrid },
+                            grid: { color: cGrid },
+                            pointLabels: { color: cText },
+                            suggestedMin: 0,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // 6. Peak Traffic Hours (Area)
+            const ctxTraffic = document.getElementById('chart-traffic').getContext('2d');
+            const gradTraffic = ctxTraffic.createLinearGradient(0, 0, 0, 300);
+            gradTraffic.addColorStop(0, isDark ? 'rgba(5, 205, 153, 0.2)' : 'rgba(1, 181, 116, 0.2)');
+            gradTraffic.addColorStop(1, isDark ? 'rgba(5, 205, 153, 0)' : 'rgba(1, 181, 116, 0)');
+
+            _chartTraffic = new Chart(ctxTraffic, {
+                type: 'line',
+                data: {
+                    labels: ['12 AM', '4 AM', '8 AM', '12 PM', '4 PM', '8 PM'],
+                    datasets: [{
+                        label: 'Requests',
+                        data: [2, 5, 25, 45, 30, 15], // Mock data as it's usually not in base stats
+                        borderColor: cAccent,
+                        backgroundColor: gradTraffic,
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: cAccent,
+                        pointBorderColor: cBg
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: cTooltipBg, titleColor: cTooltipText, bodyColor: cTooltipText }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: cGrid, drawBorder: false }, ticks: { color: cText } },
+                        x: { grid: { display: false }, ticks: { color: cText } }
+                    }
+                }
+            });
+
+            // 7. Command Success Rate (Doughnut)
+            const ctxStatus = document.getElementById('chart-status').getContext('2d');
+            _chartStatus = new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Successful', 'Failed', 'Timeout'],
+                    datasets: [{
+                        data: [85, 10, 5],
+                        backgroundColor: [cAccent, '#EE5D50', '#FFB547'],
+                        borderWidth: 2,
+                        borderColor: cBg,
+                        cutout: '80%',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: cTooltipBg, titleColor: cTooltipText, bodyColor: cTooltipText }
+                    }
+                },
+                plugins: [{
+                    id: 'centerTextStatus',
+                    beforeDraw: (chart) => {
+                        const { ctx, width, height } = chart;
+                        ctx.restore();
+
+                        // Calculate percentage
+                        const data = chart.data.datasets[0].data;
+                        const total = data.reduce((a, b) => a + b, 0);
+                        const successPerc = Math.round((data[0] / total) * 100);
+
+                        const fontSize = (height / 150).toFixed(2);
+                        ctx.font = `bold ${fontSize}em "Plus Jakarta Sans"`;
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = cDoughnutCenter;
+
+                        const text = successPerc + "%";
+                        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                        const textY = (height / 2) - 5;
+                        ctx.fillText(text, textX, textY);
+
+                        ctx.font = `700 0.7em "Plus Jakarta Sans"`;
+                        ctx.fillStyle = cAccent;
+                        const subText = "SUCCESS";
+                        const subX = Math.round((width - ctx.measureText(subText).width) / 2);
+                        const subY = (height / 2) + 18;
+                        ctx.fillText(subText, subX, subY);
+
+                        ctx.save();
+                    }
+                }]
+            });
+
+            // Finally, render the calendar and tasks
+            renderCalendar();
+            renderTasks();
+        }
+
+        // ── CALENDAR LOGIC ──
+        // Task scheduler
+        const TASK_STORE_KEY = 'admin_dashboard_tasks';
+
+        function getTasks() {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Closes active sub-routing execution contexts and returns specified properties
+                return JSON.parse(localStorage.getItem(TASK_STORE_KEY)) || [];
+            } catch (e) {
+                // Closes active sub-routing execution contexts and returns specified properties
+                return [];
+            }
+        }
+
+        function saveTasks(tasks) {
+            // Interfaces local client hardware state storage to keep dashboard settings persistent
+            localStorage.setItem(TASK_STORE_KEY, JSON.stringify(tasks));
+        }
+
+        function escapeHtml(value) {
+            // Closes active sub-routing execution contexts and returns specified properties
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function taskPriorityClass(priority) {
+            if (priority === 'High') return 'pl-r';
+            if (priority === 'Low') return 'pl-b';
+            // Closes active sub-routing execution contexts and returns specified properties
+            return 'pl-y';
+        }
+
+        function formatTaskDate(dateValue) {
+            if (!dateValue) return 'No date';
+            const d = new Date(`${dateValue}T00:00:00`);
+            // Closes active sub-routing execution contexts and returns specified properties
+            return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        // Binds persistent task lists from local storage database mapping details inline
+        function renderTasks() {
+            const list = document.getElementById('task-list');
+            if (!list) return;
+
+            const dateInput = document.getElementById('task-date');
+            if (dateInput && !dateInput.value) dateInput.valueAsDate = new Date();
+
+            const tasks = getTasks().sort((a, b) => {
+                if (a.done !== b.done) return a.done ? 1 : -1;
+                // Closes active sub-routing execution contexts and returns specified properties
+                return (a.date || '').localeCompare(b.date || '');
+            });
+
+            if (!tasks.length) {
+                list.innerHTML = '<div class="empty">No scheduled tasks yet</div>';
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+
+            list.innerHTML = tasks.map(task => `
+                <div class="task-item ${task.done ? 'is-done' : ''}">
+                    <button class="task-check ${task.done ? 'done' : ''}" onclick="toggleTask('${task.id}')" title="${task.done ? 'Mark pending' : 'Mark done'}">
+                        <i data-lucide="${task.done ? 'check' : 'circle'}" style="width:16px;height:16px;"></i>
+                    </button>
+                    <div class="task-main">
+                        <div class="task-title">${escapeHtml(task.title)}</div>
+                        <div class="task-meta">
+                            <span>${formatTaskDate(task.date)}</span>
+                            <span class="pl ${taskPriorityClass(task.priority)}">${escapeHtml(task.priority)}</span>
+                        </div>
+                    </div>
+                    <span class="pl ${task.done ? 'pl-g' : 'pl-y'}">${task.done ? 'Done' : 'Pending'}</span>
+                    <button class="task-delete" onclick="deleteTask('${task.id}')" title="Delete task">
+                        <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Handles custom schedule form input validation and pushes it to local store database
+        function addTask(event) {
+            event.preventDefault();
+            const titleEl = document.getElementById('task-title');
+            const dateEl = document.getElementById('task-date');
+            const priorityEl = document.getElementById('task-priority');
+            const title = titleEl.value.trim();
+
+            if (!title) {
+                // Displays visually crisp notification toasts detailing action execution outcomes
+                toast('Enter a task name', 'error');
+                titleEl.focus();
+                // Closes active sub-routing execution contexts and returns specified properties
+                return;
+            }
+
+            const tasks = getTasks();
+            tasks.push({
+                id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+                title,
+                date: dateEl.value,
+                priority: priorityEl.value,
+                done: false
+            });
+            saveTasks(tasks);
+            titleEl.value = '';
+            priorityEl.value = 'Medium';
+            renderTasks();
+            // Displays visually crisp notification toasts detailing action execution outcomes
+            toast('Task scheduled');
+        }
+
+        function toggleTask(id) {
+            const tasks = getTasks().map(task => task.id === id ? { ...task, done: !task.done } : task);
+            saveTasks(tasks);
+            renderTasks();
+        }
+
+        function deleteTask(id) {
+            saveTasks(getTasks().filter(task => task.id !== id));
+            renderTasks();
+        }
+
+        let calDate = new Date();
+        // Populates calendar date grid using local time metric values dynamically
+        function renderCalendar() {
+            const grid = document.getElementById('cal-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const monthEl = document.getElementById('cal-month-name');
+            const yearEl = document.getElementById('cal-year-val');
+
+            if (monthEl) monthEl.textContent = monthNames[calDate.getMonth()];
+            if (yearEl) yearEl.textContent = calDate.getFullYear();
+
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(d => grid.innerHTML += `<div class="cal-day-name">${d}</div>`);
+
+            const firstDay = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay();
+            const daysInMonth = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="cal-day empty-day"></div>`;
+
+            const today = new Date();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday = today.getDate() === d && today.getMonth() === calDate.getMonth() && today.getFullYear() === calDate.getFullYear();
+                const hasEvent = d % 7 === 0 || d === 15; // Mock events
+                grid.innerHTML += `<div class="cal-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}">${d}</div>`;
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function changeMonth(dir) {
+            calDate.setMonth(calDate.getMonth() + dir);
+            renderCalendar();
+        }
+
+        // ── USERS ──
+        // Retrieves master user listing from system database endpoints and updates tables
+        async function loadUsers() {
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('users-tbl').innerHTML = '<div class="loading">Loading...</div>';
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/users`, { headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) { allU = d.users; rUsers(allU); }
+            } catch (e) { document.getElementById('users-tbl').innerHTML = '<div class="empty">⚠ Failed</div>'; }
+        }
+
+        // ── BULK ACTIONS ──
+        function toggleSelectAll(type, checked) {
+            const checks = document.querySelectorAll(`.cb-${type}`);
+            checks.forEach(c => c.checked = checked);
+            updateBulkActions(type);
+        }
+
+        function updateBulkActions(type) {
+            const selected = document.querySelectorAll(`.cb-${type}:checked`).length;
+            const btn = document.getElementById(`btn-bulk-${type}`);
+            if (btn) btn.style.display = selected > 0 ? 'inline-block' : 'none';
+        }
+
+        // Triggers systemic batch record removals across logs, SOS alerts, or search logs
+        async function bulkDelete(type) {
+            const selected = Array.from(document.querySelectorAll(`.cb-${type}:checked`)).map(c => parseInt(c.value));
+            if (!selected.length) return;
+            if (!confirm(`Permanently delete ${selected.length} selected ${type}?`)) return;
+
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/bulk-delete`, {
+                    method: 'POST',
+                    headers: H,
+                    body: JSON.stringify({ type, ids: selected })
+                });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    // Displays visually crisp notification toasts detailing action execution outcomes
+                    toast(d.message);
+                    // Refresh the current view
+                    if (type === 'users') loadUsers();
+                    else {
+                        const epMap = {
+                            logins: '/api/admin/login_logs',
+                            commands: '/api/admin/command_logs',
+                            sos: '/api/admin/sos_logs',
+                            weather: '/api/admin/weather_logs',
+                            news: '/api/admin/news_logs',
+                            stocks: '/api/admin/stock_logs'
+                        };
+                        const fnMap = { logins: rLogins, commands: rCmds, sos: rSOS, weather: rWeather, news: rNews, stocks: rStocks };
+                        const tblMap = { logins: 'login-tbl', commands: 'cmd-tbl', sos: 'sos-tbl', weather: 'weather-tbl', news: 'news-tbl', stocks: 'stock-tbl' };
+                        logLoad(epMap[type], tblMap[type], fnMap[type], `all${type.charAt(0).toUpperCase() + type.slice(1)}`);
+                    }
+                    updateBulkActions(type);
+                } else toast(d.message, 'error');
+            } catch (e) { toast('Error performing bulk delete', 'error'); }
+        }
+
+        function rUsers(data) {
+            const rows = data.map(u => `
+        <tr>
+            <td><strong>${u.name}</strong></td>
+            <td style="color:var(--muted)">${u.email}</td>
+            <td>${u.phone || '—'}</td>
+            <td><span class="pl ${u.status === 'active' ? 'pl-g' : 'pl-r'}">${u.status}</span></td>
+            <td style="color:var(--muted);font-size:11px">${fmt(u.created_at)}</td>
+            <td>
+                ${u.status === 'active'
+                    ? `<button class="ab ab-r" onclick="togU(${u.user_id},'disabled')">Disable</button>`
+                    : `<button class="ab ab-g" onclick="togU(${u.user_id},'active')">Enable</button>`}
+                <button class="ab ab-r" onclick="delU(${u.user_id})" style="margin-left:6px">Delete</button>
+            </td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('users-tbl').innerHTML = `
+        <table>
+            <thead><tr>
+                <th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Joined</th><th>Actions</th>
+            </tr></thead>
+            <tbody>${rows || nd(6)}</tbody>
+        </table>`;
+        }
+
+        function filterUsers() {
+            const q = document.getElementById('u-search').value.toLowerCase();
+            rUsers(allU.filter(u => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)));
+        }
+
+        async function togU(id, status) {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/users/${id}/status`, { method: 'PUT', headers: H, body: JSON.stringify({ status }) });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                d.success ? (toast('User ' + status + '!'), loadUsers()) : toast(d.message, 'error');
+            } catch (e) { toast('Error', 'error'); }
+        }
+
+        async function delU(id) {
+            if (!confirm('Delete this user permanently?')) return;
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/users/${id}`, { method: 'DELETE', headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                d.success ? (toast('Deleted!'), loadUsers()) : toast(d.message, 'error');
+            } catch (e) { toast('Error', 'error'); }
+        }
+
+        // ── GENERIC LOG LOADER ──
+        async function logLoad(ep, elId, fn, storeVar) {
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(elId).innerHTML = '<div class="loading">Loading...</div>';
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}${ep}`, { headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    if (storeVar === 'allLogins') allLogins = d.data;
+                    if (storeVar === 'allCmds') allCmds = d.data;
+                    if (storeVar === 'allSOS') allSOS = d.data;
+                    if (storeVar === 'allWeather') allWeather = d.data;
+                    if (storeVar === 'allNews') allNews = d.data;
+                    if (storeVar === 'allStocks') allStocks = d.data;
+                    fn(d.data, elId);
+                } else {
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById(elId).innerHTML = '<div class="empty">No data found</div>';
+                }
+            } catch (e) { document.getElementById(elId).innerHTML = '<div class="empty">⚠ Failed</div>'; }
+        }
+
+        // ── FILTER FUNCTIONS ──
+        function filterLogins() {
+            const q = document.getElementById('login-search').value.toLowerCase();
+            rLogins(allLogins.filter(r => (r.user_name || '').toLowerCase().includes(q) || (r.user_email || '').toLowerCase().includes(q)), 'login-tbl');
+        }
+        function filterCmds() {
+            const q = document.getElementById('cmd-search').value.toLowerCase();
+            rCmds(allCmds.filter(r => (r.user_name || '').toLowerCase().includes(r.user_name ? q : '') || (r.command_text || '').toLowerCase().includes(q)), 'cmd-tbl');
+        }
+        function filterSOS() {
+            const q = document.getElementById('sos-search').value.toLowerCase();
+            rSOS(allSOS.filter(r => (r.user_name || '').toLowerCase().includes(q) || (r.location || '').toLowerCase().includes(q)), 'sos-tbl');
+        }
+        function filterWeather() {
+            const q = document.getElementById('weather-search').value.toLowerCase();
+            rWeather(allWeather.filter(r => (r.user_name || '').toLowerCase().includes(q) || (r.city || '').toLowerCase().includes(q)), 'weather-tbl');
+        }
+        function filterNews() {
+            const q = document.getElementById('news-search').value.toLowerCase();
+            rNews(allNews.filter(r => (r.user_name || '').toLowerCase().includes(q) || (r.news_title || '').toLowerCase().includes(q)), 'news-tbl');
+        }
+        function filterStocks() {
+            const q = document.getElementById('stock-search').value.toLowerCase();
+            rStocks(allStocks.filter(r => (r.user_name || '').toLowerCase().includes(q) || (r.company_name || '').toLowerCase().includes(q)), 'stock-tbl');
+        }
+
+        function rCmds(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><input type="checkbox" class="cb-commands" value="${r.command_log_id}" onchange="updateBulkActions('commands')"></td>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.command_text}</td>
+            <td><span class="pl pl-b">${r.intent_type}</span></td>
+            <td><span class="pl ${r.execution_status === 'success' ? 'pl-g' : 'pl-r'}">${r.execution_status || '—'}</span></td>
+            <td style="color:var(--muted);font-size:11px">${fmt(r.timestamp)}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+        
+        <table>
+            <thead><tr>
+                <th style="width:30px"><input type="checkbox" onchange="toggleSelectAll('commands', this.checked)"></th>
+                <th>User</th><th>Command</th><th>Intent</th><th>Status</th><th>Time</th>
+            </tr></thead>
+            <tbody>${rows || nd(6)}</tbody>
+        </table>`;
+        }
+
+        function rSOS(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><input type="checkbox" class="cb-sos" value="${r.sos_id}" onchange="updateBulkActions('sos')"></td>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td>${r.location || '—'}</td>
+            <td>${r.emergency_contact || '—'}</td>
+            <td><span class="pl ${r.status === 'resolved' ? 'pl-g' : 'pl-r'}">${r.status}</span></td>
+            <td style="color:var(--muted);font-size:11px">${fmt(r.triggered_time)}</td>
+            <td>${r.status !== 'resolved' ? `<button class="ab ab-g" onclick="resSOS(${r.sos_id})">✅ Resolve</button>` : '—'}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+        
+        <table>
+            <thead><tr>
+                <th style="width:30px"><input type="checkbox" onchange="toggleSelectAll('sos', this.checked)"></th>
+                <th>User</th><th>Location</th><th>Contact</th><th>Status</th><th>Time</th><th>Action</th>
+            </tr></thead>
+            <tbody>${rows || nd(7)}</tbody>
+        </table>`;
+        }
+
+        async function resSOS(id) {
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/sos/${id}/resolve`, { method: 'PUT', headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                d.success ? (toast('SOS resolved!'), logLoad('/api/admin/sos_logs', 'sos-tbl', rSOS)) : toast(d.message, 'error');
+            } catch (e) { toast('Error', 'error'); }
+        }
+
+        function sessionDuration(login, logout) {
+            if (!login || !logout) return '<span class="pl pl-g">● Active</span>';
+            const diff = Math.floor((new Date(logout) - new Date(login)) / 1000);
+            if (diff < 60) return diff + 's';
+            if (diff < 3600) return Math.floor(diff / 60) + 'm ' + (diff % 60) + 's';
+            // Closes active sub-routing execution contexts and returns specified properties
+            return Math.floor(diff / 3600) + 'h ' + Math.floor((diff % 3600) / 60) + 'm';
+        }
+
+        function deviceIcon(d) {
+            if (!d) return '🖥️ —';
+            if (d === 'Mobile') return '📱 Mobile';
+            if (d === 'Tablet') return '📟 Tablet';
+            // Closes active sub-routing execution contexts and returns specified properties
+            return '🖥️ Desktop';
+        }
+
+        function rLogins(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td style="font-size:11px;color:var(--muted)">${r.user_email || '—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${fmt(r.login_time)}</td>
+            <td style="font-size:11px;color:var(--muted)">${r.logout_time ? fmt(r.logout_time) : '<span class="pl pl-g">● Active</span>'}</td>
+            <td style="font-size:12px;color:var(--teal);font-weight:600">${sessionDuration(r.login_time, r.logout_time)}</td>
+            <td style="font-size:11px">${r.ip_address || '—'}</td>
+            <td style="font-size:11px">${deviceIcon(r.device_type)}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+        
+        <table>
+            <thead><tr>
+                <th>Name</th><th>Email</th><th>Login</th><th>Logout</th><th>Duration</th><th>IP</th><th>Device</th>
+            </tr></thead>
+            <tbody>${rows || nd(7)}</tbody>
+        </table>`;
+        }
+
+        function rWeather(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><input type="checkbox" class="cb-weather" value="${r.weather_log_id}" onchange="updateBulkActions('weather')"></td>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td>${r.city}</td>
+            <td style="color:var(--teal)">${r.temperature ? r.temperature + '°C' : '—'}</td>
+            <td>${r.condition || '—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${fmt(r.request_time)}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+        
+        <table>
+            <thead><tr>
+                <th style="width:30px"><input type="checkbox" onchange="toggleSelectAll('weather', this.checked)"></th>
+                <th>User</th><th>City</th><th>Temp</th><th>Condition</th><th>Time</th>
+            </tr></thead>
+            <tbody>${rows || nd(6)}</tbody>
+        </table>`;
+        }
+
+        function rNews(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><input type="checkbox" class="cb-news" value="${r.news_log_id}" onchange="updateBulkActions('news')"></td>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.news_title}</td>
+            <td><span class="pl pl-y">${r.category || '—'}</span></td>
+            <td style="color:var(--muted);font-size:11px">${r.source || '—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${fmt(r.request_time)}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+       
+        <table>
+            <thead><tr>
+                <th style="width:30px"><input type="checkbox" onchange="toggleSelectAll('news', this.checked)"></th>
+                <th>User</th><th>Title</th><th>Category</th><th>Source</th><th>Time</th>
+            </tr></thead>
+            <tbody>${rows || nd(6)}</tbody>
+        </table>`;
+        }
+
+        function rStocks(data, id) {
+            const rows = data.map(r => `
+        <tr>
+            <td><input type="checkbox" class="cb-stocks" value="${r.stock_log_id}" onchange="updateBulkActions('stocks')"></td>
+            <td><strong>${r.user_name || '—'}</strong></td>
+            <td>${r.company_name}</td>
+            <td><span class="pl pl-b">${r.stock_symbol}</span></td>
+            <td style="color:var(--teal);font-weight:600">${r.price ? r.currency + ' ' + r.price : '—'}</td>
+            <td style="font-size:11px;color:var(--muted)">${fmt(r.request_time)}</td>
+        </tr>`).join('');
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById(id).innerHTML = `
+        
+        <table>
+            <thead><tr>
+                <th style="width:30px"><input type="checkbox" onchange="toggleSelectAll('stocks', this.checked)"></th>
+                <th>User</th><th>Company</th><th>Symbol</th><th>Price</th><th>Time</th>
+            </tr></thead>
+            <tbody>${rows || nd(6)}</tbody>
+        </table>`;
+        }
+
+        // ── VERSIONS ──
+        async function loadVers() {
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('vr-tbl').innerHTML = '<div class="loading">Loading...</div>';
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/versions`, { headers: H });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    const rows = d.data.map(v => `
+                <tr>
+                    <td><span class="pl pl-dk" style="background: var(--indigo); border-radius: 6px; padding: 4px 10px; font-weight: 800;">${v.version_number}</span></td>
+                    <td style="font-weight: 600; color: var(--text);">${v.release_date}</td>
+                    <td style="color:var(--text-mid); font-size: 12px; max-width: 200px;">${v.description || '—'}</td>
+                    <td style="font-size:11px;color:var(--text-muted)">${fmt(v.uploaded_at)}</td>
+                </tr>`).join('');
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('vr-tbl').innerHTML = `<table><thead><tr><th>Version</th><th>Date</th><th>Description</th><th>Uploaded</th></tr></thead><tbody>${rows || nd(4)}</tbody></table>`;
+                }
+            } catch (e) { document.getElementById('vr-tbl').innerHTML = '<div class="empty">⚠ Failed</div>'; }
+        }
+
+        async function addVer() {
+            const n = document.getElementById('v-n').value.trim();
+            const d = document.getElementById('v-d').value;
+            const desc = document.getElementById('v-desc').value.trim();
+            if (!n || !d) { toast('Version & date required', 'error'); return; }
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/versions`, { method: 'POST', headers: H, body: JSON.stringify({ version_number: n, release_date: d, description: desc }) });
+                // Parses network response structures into readable javascript object streams
+                const res = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (res.success) {
+                    // Displays visually crisp notification toasts detailing action execution outcomes
+                    toast('Version published! 🚀');
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('v-n').value = '';
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('v-d').value = '';
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('v-desc').value = '';
+                    loadVers();
+                } else toast(res.message, 'error');
+            } catch (e) { toast('Error', 'error'); }
+        }
+
+        // ── ANNOUNCE ──
+        function updateAnnPreview() {
+            const s = document.getElementById('an-s').value.trim();
+            const m = document.getElementById('an-m').value.trim();
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('prev-s').textContent = s || '[No Subject]';
+            // Binds HTML DOM items dynamically by checking their unique identifying labels
+            document.getElementById('prev-m').textContent = m || 'Your message will appear here...';
+        }
+
+        async function sendAnn() {
+            const s = document.getElementById('an-s').value.trim();
+            const m = document.getElementById('an-m').value.trim();
+            const el = document.getElementById('an-r');
+            if (!s || !m) { toast('Subject & message required', 'error'); return; }
+            setBox(el, '📤 Sending to all users...', 'y');
+            // Encloses operational API calls inside guard states to intercept error crashes
+            try {
+                // Triggers asynchronous server HTTP requests to load operational database streams
+                const r = await fetch(`${API}/api/admin/announce`, { method: 'POST', headers: H, body: JSON.stringify({ subject: s, message: m }) });
+                // Parses network response structures into readable javascript object streams
+                const d = await r.json();
+                // Validates logical success returns before continuing data bindings updates
+                if (d.success) {
+                    setBox(el, '✅ ' + d.message, 'g');
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('an-s').value = '';
+                    // Binds HTML DOM items dynamically by checking their unique identifying labels
+                    document.getElementById('an-m').value = '';
+                    updateAnnPreview();
+                } else setBox(el, '❌ ' + d.message, 'r');
+            } catch (e) { setBox(el, '❌ Server error', 'r'); }
+        }
+
+        // ── HELPERS ──
+        function fmt(dt) {
+            if (!dt) return '—';
+            // Closes active sub-routing execution contexts and returns specified properties
+            return new Date(dt).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function nd(cols) {
+            // Closes active sub-routing execution contexts and returns specified properties
+            return `<tr><td colspan="${cols}"><div class="empty">No records found</div></td></tr>`;
+        }
+
+        function toast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.className = 'toast ' + type; t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function setBox(el, msg, c) {
+            const map = {
+                y: ['#fffbeb', '#d97706', '#fef3c7'],
+                g: ['#ecfdf5', '#059669', '#d1fae5'],
+                r: ['#fef2f2', '#dc2626', '#fee2e2']
+            };
+            const [bg, fg, bc] = map[c];
+            el.style.display = 'block';
+            el.style.background = bg;
+            el.style.color = fg;
+            el.style.borderColor = bc;
+            el.textContent = msg;
+        }
+
+        // Destroys credential storage records and replaces window browser history states
+        function logout() {
+            localStorage.clear();
+            // Use replace() so the dashboard is removed from the browser history stack
+            // — pressing Back after this will NOT return to the dashboard
+            // Reroutes unauthenticated user attempts back to credentials input panel
+            window.location.replace('login.html');
+        }
+
+        // INIT
+        showSection('overview');
+        renderTasks();
+
+        // Force-clear the search bar — delayed to run AFTER browser autocomplete injection
+        function _clearSearch() {
+            const s = document.getElementById('ov-user-search');
+            if (s) { s.value = ''; s.setAttribute('readonly', ''); }
+            const btn = document.getElementById('ov-clear-btn');
+            if (btn) btn.style.display = 'none';
+        }
+        _clearSearch();
+        setTimeout(_clearSearch, 100);
+        setTimeout(_clearSearch, 500);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+# ============================================================
+#  EmpowerAccess Desktop — requirements.txt
+#  Install with:  pip install -r requirements.txt
+# ============================================================
+
+# ── Core / Backend communication ──────────────────────────
+requests>=2.31.0
+PyJWT>=2.8.0
+
+# ── Voice STT (Whisper) ────────────────────────────────────
+openai-whisper>=20231117
+# Whisper also needs ffmpeg on PATH — install via:
+#   Windows: winget install ffmpeg  OR  choco install ffmpeg
+#   Linux:   sudo apt install ffmpeg
+
+# ── Audio recording ────────────────────────────────────────
+sounddevice>=0.4.6
+soundfile>=0.12.1
+numpy>=1.24.0
+
+# ── TTS ────────────────────────────────────────────────────
+pyttsx3>=2.90            # offline TTS (default)
+edge-tts>=6.1.10       # high-quality free cloud TTS
+pygame>=2.5.0          # required only for cloud audio playback
+
+# ── System tools ───────────────────────────────────────────
+psutil>=5.9.0
+keyboard>=0.13.5
+
+# ── Optional UI enhancements ───────────────────────────────
+pyautogui>=0.9.54        # screenshot, keyboard shortcuts
+pyperclip>=1.8.2         # clipboard read/write
+
+# ── PyInstaller (for building .exe) ────────────────────────
+pyinstaller>=6.3.0
