@@ -58,7 +58,7 @@ Before running the backend, set the following environment variables:
 ```bash
 set JWT_SECRET=your-secret-key
 set EMAIL_HOST=smtp.gmail.com
-set EMAIL_PORT=587
+set EMAIL_PORT=***
 set EMAIL_USER=your-email@gmail.com
 set EMAIL_PASS=your-app-password
 set EMAIL_FROM=your-email@gmail.com
